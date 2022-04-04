@@ -4,7 +4,7 @@ import styles from './FormTodo.module.css';
 import { CancelButton, CloseFormButton, CreateTodoButton, UpdateTodoButton } from '../../../components_common';
 import useComputeForm from '../../../hooks/useComputeForm';
 
-const FormTodo = ({ title, description, onSubmit, onUpdate, onClose, isEditMode }: FormTodoProps): JSX.Element => {
+const FormTodo = ({ onSubmit, onUpdate, onClose, isEditMode }: FormTodoProps): JSX.Element => {
   const { settings, handler } = useComputeForm({ onSubmit, onUpdate });
 
   return (
@@ -21,12 +21,12 @@ const FormTodo = ({ title, description, onSubmit, onUpdate, onClose, isEditMode 
         <label className={styles.form__label} htmlFor="title">
           Title
         </label>
-        <input value={isEditMode ? title : ''} {...settings.input} />
+        <input {...settings.input} />
 
         <label className={styles.form__label} htmlFor="description">
           Description
         </label>
-        <textarea value={isEditMode ? description : ''} {...settings.textArea} />
+        <textarea {...settings.textArea} />
 
         <div className={styles.form__buttonContainer}>
           {isEditMode ? (

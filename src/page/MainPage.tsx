@@ -119,8 +119,6 @@ const MainPage = () => {
       />
       <Modal isActive={isModalActive} setActive={setModalActive}>
         <FormTodo
-          title={currentTodo.title}
-          description={currentTodo.description}
           isEditMode={isEditMode}
           onSubmit={handlerOnSubmit}
           onUpdate={handlerOnUpdate}

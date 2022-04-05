@@ -11,6 +11,7 @@ import FormEditTodo from './components/form/FormEditTodo';
 import FormCreateTodo from './components/form/FormCreateTodo';
 
 const MainPage = () => {
+  //TODO refactor with useReduce
   const [todos, setTodos] = useState<TodoCardProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalActive, setModalActive] = useState(false);

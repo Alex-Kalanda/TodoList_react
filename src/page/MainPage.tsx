@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import EmptyCard from './components/EmptyCard/EmptyCard';
 import styles from './MainPage.module.css';
-import { TodoResponse, TodoCardProps } from './components/Card/TodoCard.props';
+import { TodoResponse, TodoCardProps, TodoData } from './components/Card/TodoCard.props';
 import TodoCard from './components/Card/TodoCard';
 import axios, { AxiosResponse } from 'axios';
 import { CreateTodoButtonNew, Preloader } from '../components_common';
 import Modal from '../components_common/Modal/Modal';
-import FormTodo from './components/FormCreateTodo/FormTodo';
-import { FieldValues, SubmitHandler } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
+import FormEditTodo from './components/form/FormEditTodo';
+import FormCreateTodo from './components/form/FormCreateTodo';
 
 const MainPage = () => {
   const [todos, setTodos] = useState<TodoCardProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalActive, setModalActive] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
-  const [editTodoId, setEditTodoId] = useState('');
+  const [editTodo, setEditTodo] = useState({ id: '', title: '', description: '', status: '' });
 
   const getTodos = () => {
     axios
@@ -29,8 +30,6 @@ const MainPage = () => {
         throw error;
       });
   };
-
-  const currentTodo = todos.filter(({ id }) => id === editTodoId)[0];
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,13 +53,14 @@ const MainPage = () => {
       });
   };
 
-  const handlerOnOpenEditModal = (id: string) => {
-    setEditTodoId(id);
+  const handlerOnOpenEditModal = (todo: TodoData) => {
+    setEditTodo(todo);
     setEditMode(true);
     setModalActive(true);
   };
 
   const handlerOnUpdate = (data: FieldValues) => {
+    console.log(data);
     axios({
       url: process.env.REACT_APP_TODO_ENDPOINT,
       method: 'patch',
@@ -68,7 +68,7 @@ const MainPage = () => {
         'Content-Type': 'application/json',
       },
       data: {
-        id: editTodoId,
+        id: editTodo?.id,
         ...data,
       },
     })
@@ -76,6 +76,7 @@ const MainPage = () => {
         if (resp.statusText === 'OK') {
           getTodos();
         }
+        setEditMode(false);
         setModalActive(false);
       })
       .catch((error) => {
@@ -83,7 +84,8 @@ const MainPage = () => {
       });
   };
 
-  const handlerOnSubmit: SubmitHandler<FieldValues> = (data) => {
+  const handlerOnSubmit = (data: FieldValues) => {
+    console.log(data);
     axios({
       url: process.env.REACT_APP_TODO_ENDPOINT,
       method: 'post',
@@ -103,6 +105,11 @@ const MainPage = () => {
       });
   };
 
+  const handleOnCloseModal = () => {
+    setModalActive(false);
+    setEditMode(false);
+  };
+
   const todoList = todos.map((todo: TodoResponse) => {
     return <TodoCard key={todo.id} onDelete={handlerOnDelete} onOpenEditModal={handlerOnOpenEditModal} {...todo} />;
   });
@@ -113,17 +120,15 @@ const MainPage = () => {
       <CreateTodoButtonNew
         className={styles.page__button}
         onClick={() => {
-          setEditMode(false);
           setModalActive(true);
         }}
       />
       <Modal isActive={isModalActive} setActive={setModalActive}>
-        <FormTodo
-          isEditMode={isEditMode}
-          onSubmit={handlerOnSubmit}
-          onUpdate={handlerOnUpdate}
-          onClose={() => setModalActive(false)}
-        />
+        {isEditMode ? (
+          <FormEditTodo editValues={editTodo} onUpdate={handlerOnUpdate} onClose={handleOnCloseModal} />
+        ) : (
+          <FormCreateTodo onSubmit={handlerOnSubmit} onClose={handleOnCloseModal} />
+        )}
       </Modal>
     </main>
   );

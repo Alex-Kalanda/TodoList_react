@@ -11,8 +11,14 @@ export interface TodoResponse extends TodoRequest {
   createdAt: string;
   modifiedAt?: string;
 }
+export interface TodoData {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+}
 
 export interface TodoCardProps extends TodoResponse {
   onDelete: (id: string) => void;
-  onOpenEditModal: (id: string) => void;
+  onOpenEditModal: (todo: TodoData) => void;
 }

@@ -4,20 +4,24 @@
   height: 40px;
   color: white;
 }
+
 .button:hover {
   cursor: pointer;
 }
+
 .form__button {
   background-color: #113e77;
 }
+
 .form__button:hover {
   color: black;
-
   background-color: #559eff;
 }
+
 .createNewButton {
   background-color: #36620e;
 }
+
 .createNewButton:hover {
   color: black;
   background-color: #94ff5b;
@@ -26,8 +30,8 @@
 .updateButton {
   background-color: #b39320;
 }
+
 .updateButton:hover {
   color: black;
-
   background-color: #ffc85b;
 }

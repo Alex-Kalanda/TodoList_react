@@ -11,12 +11,15 @@
   justify-content: center;
   gap: 5px;
 }
+
 .completed {
   background-color: #b8ffb1;
 }
+
 .inProgress {
   background-color: #ffc2c2;
 }
+
 .planned {
   background-color: #f9fc9e;
 }
@@ -26,6 +29,7 @@
   top: 20px;
   right: 40px;
 }
+
 .editButton {
   position: absolute;
   top: 80px;

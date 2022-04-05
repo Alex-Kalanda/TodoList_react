@@ -1,5 +1,5 @@
 import React from 'react';
-import { TodoCardProps } from './TodoCard.props';
+import { TodoCardProps, TodoData } from './TodoCard.props';
 import styles from './TodoCard.module.css';
 import cn from 'classnames';
 import { TodoStatus } from '../../../enums/enums';
@@ -7,6 +7,8 @@ import { DeleteTodoButton, EditTodoButton } from '../../../components_common';
 
 const TodoCard = (props: TodoCardProps): JSX.Element => {
   const { id, title, description, status, createdAt, modifiedAt, onDelete, onOpenEditModal } = props;
+
+  const todo: TodoData = { id, title, description, status };
 
   const cardStyles = cn(styles.card, {
     [styles.completed]: status === TodoStatus.completed,
@@ -25,7 +27,7 @@ const TodoCard = (props: TodoCardProps): JSX.Element => {
       <EditTodoButton
         className={styles.editButton}
         onClick={() => {
-          onOpenEditModal(id);
+          onOpenEditModal(todo);
         }}
       />
 

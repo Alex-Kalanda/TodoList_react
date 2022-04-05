@@ -4,13 +4,16 @@
   height: 40px;
   color: white;
 }
+
 .button:hover {
   cursor: pointer;
 }
+
 .form_button {
   background-color: #7e1010;
 }
+
 .form_button:hover {
-  background-color: #ff5555;
+  background-color: #f55;
   color: black;
 }

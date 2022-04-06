@@ -6,7 +6,7 @@ import { TodoStatus } from '../../../enums/enums';
 import { DeleteTodoButton, EditTodoButton } from '../../../components_common';
 
 const TodoCard = (props: TodoCardProps): JSX.Element => {
-  const { id, title, description, status, createdAt, modifiedAt, onDelete, onOpenEditModal } = props;
+  const { id, title, description, status, onDelete, onOpenEditModal } = props;
 
   const todo: TodoData = { id, title, description, status };
 
@@ -33,8 +33,6 @@ const TodoCard = (props: TodoCardProps): JSX.Element => {
 
       <div>Title: {title}</div>
       <div>Description: {description}</div>
-      {createdAt && <div>Created: {createdAt.split('T')[0]}</div>}
-      {modifiedAt && <div>Modified: {modifiedAt.split('T')[0]}</div>}
     </div>
   );
 };

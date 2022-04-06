@@ -8,7 +8,7 @@ const UpdateTodoButton = ({ className }: TodoButtonProps): JSX.Element => {
 
   return (
     <button type="submit" className={buttonStyle}>
-      Update
+      Edit
     </button>
   );
 };

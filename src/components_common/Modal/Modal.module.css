@@ -24,11 +24,11 @@
   align-items: center;
   position: relative;
   padding: 30px;
-  background-color: #fff;
+  background-color: #ced4da;
   border-radius: 5px;
   border: 2px black solid;
   width: 80vw;
-  max-width: 600px;
+  max-width: 480px;
   transform: translateX(-300%);
   transition: 0.3s;
 }

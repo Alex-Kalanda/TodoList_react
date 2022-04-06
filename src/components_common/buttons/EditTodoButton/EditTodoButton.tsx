@@ -6,7 +6,7 @@ import cn from 'classnames';
 const EditTodoButton = ({ onClick, className }: EditTodoButtonProps): JSX.Element => {
   return (
     <button type="button" onClick={onClick} className={cn(className, styles.button)}>
-      edit
+      E
     </button>
   );
 };

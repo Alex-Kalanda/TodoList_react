@@ -121,8 +121,10 @@ const MainPage = () => {
         className={styles.page__button}
         onClick={() => {
           setModalActive(true);
+          setEditMode(false);
         }}
       />
+
       <Modal isActive={isModalActive} setActive={setModalActive}>
         {isEditMode ? (
           <FormEditTodo editValues={editTodo} onUpdate={handlerOnUpdate} onClose={handleOnCloseModal} />

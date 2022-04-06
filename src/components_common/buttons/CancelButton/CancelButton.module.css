@@ -10,10 +10,10 @@
 }
 
 .form_button {
-  background-color: #7e1010;
+  background-color: #fa5252;
 }
 
 .form_button:hover {
-  background-color: #f55;
+  background-color: #f69292;
   color: black;
 }

@@ -9,29 +9,22 @@
   cursor: pointer;
 }
 
-.form__button {
-  background-color: #113e77;
-}
-
-.form__button:hover {
-  color: black;
-  background-color: #559eff;
-}
-
 .createNewButton {
-  background-color: #36620e;
+  background-color: #40c057;
+  color: black;
 }
 
 .createNewButton:hover {
-  color: black;
-  background-color: #94ff5b;
+  background-color: #72be7c;
 }
 
+.form__button,
 .updateButton {
-  background-color: #b39320;
+  background-color: #228be6;
 }
 
+.form__button:hover,
 .updateButton:hover {
   color: black;
-  background-color: #ffc85b;
+  background-color: #6db0ec;
 }

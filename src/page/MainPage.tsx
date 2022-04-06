@@ -9,6 +9,7 @@ import Modal from '../components_common/Modal/Modal';
 import { FieldValues } from 'react-hook-form';
 import FormEditTodo from './components/form/FormEditTodo';
 import FormCreateTodo from './components/form/FormCreateTodo';
+import { AMOUNT_DISPLAYED_TODOS } from '../VARS';
 
 const MainPage = () => {
   //TODO refactor with useReduce
@@ -23,7 +24,7 @@ const MainPage = () => {
       .get(`${process.env.REACT_APP_TODO_ENDPOINT}`)
       .then((response: AxiosResponse) => {
         if (response.data) {
-          setTodos(response.data);
+          setTodos(response.data.slice(-AMOUNT_DISPLAYED_TODOS));
           setIsLoading(false);
         }
       })
@@ -47,7 +48,7 @@ const MainPage = () => {
       data: { id: id },
     })
       .then((resp) => {
-        setTodos(resp.data);
+        setTodos(resp.data.slice(-AMOUNT_DISPLAYED_TODOS));
       })
       .catch((error) => {
         throw error;
@@ -85,7 +86,6 @@ const MainPage = () => {
   };
 
   const handlerOnSubmit = (data: FieldValues) => {
-    console.log(data);
     axios({
       url: process.env.REACT_APP_TODO_ENDPOINT,
       method: 'post',
@@ -97,7 +97,7 @@ const MainPage = () => {
       data: data,
     })
       .then((resp) => {
-        setTodos([...todos, resp.data]);
+        setTodos([...todos, resp.data].slice(-AMOUNT_DISPLAYED_TODOS));
         setModalActive(false);
       })
       .catch((error) => {

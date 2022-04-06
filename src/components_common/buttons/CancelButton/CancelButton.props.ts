@@ -1,4 +1,4 @@
 export interface CancelButtonProps {
   className: string;
-  onClick?: () => void;
+  onClick: () => void;
 }

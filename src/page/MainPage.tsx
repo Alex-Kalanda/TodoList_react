@@ -61,7 +61,6 @@ const MainPage = () => {
   };
 
   const handlerOnUpdate = (data: FieldValues) => {
-    console.log(data);
     axios({
       url: process.env.REACT_APP_TODO_ENDPOINT,
       method: 'patch',

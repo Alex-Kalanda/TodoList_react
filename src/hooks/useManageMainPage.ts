@@ -6,7 +6,7 @@ import { TodoData } from '../page/components/Card/TodoCard.props';
 import { FieldValues } from 'react-hook-form';
 
 const initState: MainPageState = {
-  isLoading: false,
+  isLoading: true,
   isEditMode: false,
   isModalActive: false,
   activeTodo: { id: '', title: '', description: '', status: '' },
@@ -43,7 +43,6 @@ const useManageMainPage = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: ACTION, payload: { isLoading: true } });
     getTodos();
   }, []);
 

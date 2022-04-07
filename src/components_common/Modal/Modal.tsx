@@ -1,22 +1,17 @@
 import React from 'react';
 import styles from './Modal.module.css';
-import cn from 'classnames';
 import { ModalProps } from './Modal.props';
+import { CloseFormButton } from '../index';
 
-const Modal = ({ isActive, setActive, children }: ModalProps): JSX.Element => {
-  const backGroundStyle = cn(styles.background, {
-    [styles.active]: isActive,
-  });
-  const contentStyle = cn(styles.content, {
-    [styles.active]: isActive,
-  });
-
+const Modal = ({ setActive, onClose, children }: ModalProps): JSX.Element => {
   return (
-    <div className={backGroundStyle} onClick={() => setActive(false)}>
-      <div className={contentStyle} onClick={(event) => event.stopPropagation()}>
+    <>
+      <div className={styles.background} onClick={() => setActive(false)} />
+      <div className={styles.content}>
+        <CloseFormButton className={styles.closeFormButton} onClick={onClose} />
         {children}
       </div>
-    </div>
+    </>
   );
 };
 

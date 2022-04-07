@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './FormTodo.module.css';
-import { CancelButton, CloseFormButton, CreateTodoButton } from '../../../components_common';
+import { CancelButton, CreateTodoButton } from '../../../components_common';
 import useComputeForm from '../../../hooks/useComputeForm';
 import { FormCreateTodoProps } from './FormTodo.props';
 
@@ -14,16 +14,14 @@ const FormCreateTodo = ({ onSubmit, onClose }: FormCreateTodoProps): JSX.Element
 
   return (
     <>
-      <CloseFormButton className={styles.closeFormButton} onClick={handlerOnClose} />
-
       <form className={styles.form} onSubmit={handler.onSubmit}>
         <label className={styles.form__label} htmlFor="title">
-          Title
+          Title <span className={styles.form__warning}>{settings.input.error}</span>
         </label>
         <input {...settings.input} />
 
         <label className={styles.form__label} htmlFor="description">
-          Description
+          Description <span className={styles.form__warning}>{settings.textArea.error}</span>
         </label>
         <textarea {...settings.textArea} />
 

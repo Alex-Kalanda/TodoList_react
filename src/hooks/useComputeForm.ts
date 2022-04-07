@@ -37,7 +37,11 @@ const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
       error: errors?.title?.message,
       className: styles.form__title,
       ...register('title', {
-        required: 'Поле должно быть заполнено',
+        required: '- поле должно быть заполнено',
+        pattern: {
+          value: /.*[^ ].*/,
+          message: '- не может состоять из пробелов',
+        },
       }),
     },
     textArea: {
@@ -45,7 +49,11 @@ const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
       error: errors?.description?.message,
       className: styles.form__description,
       ...register('description', {
-        required: 'Поле должно быть заполнено',
+        required: '- поле должно быть заполнено',
+        pattern: {
+          value: /.*[^ ].*/,
+          message: '- не может состоять из пробелов',
+        },
       }),
     },
     status: {

@@ -20,15 +20,18 @@ const MainPage = () => {
   const content = (
     <main className={styles.page}>
       {todos.length === 0 ? <EmptyCard /> : todoList}
+
       <CreateTodoButtonNew className={styles.page__button} onClick={handler.onOpenCreateModal} />
 
-      <Modal isActive={isModalActive} setActive={handler.onSetModalActive}>
-        {isEditMode ? (
-          <FormEditTodo editValues={activeTodo} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
-        ) : (
-          <FormCreateTodo onSubmit={handler.onSubmit} onClose={handler.onCloseModal} />
-        )}
-      </Modal>
+      {isModalActive && (
+        <Modal setActive={handler.onSetModalActive} onClose={handler.onCloseModal}>
+          {isEditMode ? (
+            <FormEditTodo editValues={activeTodo} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
+          ) : (
+            <FormCreateTodo onSubmit={handler.onSubmit} onClose={handler.onCloseModal} />
+          )}
+        </Modal>
+      )}
     </main>
   );
 

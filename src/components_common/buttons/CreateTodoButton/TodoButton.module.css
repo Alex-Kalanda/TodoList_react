@@ -1,0 +1,30 @@
+.button {
+  border-radius: 5px;
+  width: 120px;
+  height: 40px;
+  color: white;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.createNewButton {
+  background-color: #40c057;
+  color: black;
+}
+
+.createNewButton:hover {
+  background-color: #72be7c;
+}
+
+.form__button,
+.updateButton {
+  background-color: #228be6;
+}
+
+.form__button:hover,
+.updateButton:hover {
+  color: black;
+  background-color: #6db0ec;
+}

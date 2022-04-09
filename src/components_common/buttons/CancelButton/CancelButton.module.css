@@ -10,7 +10,7 @@
 }
 
 .form_button {
-  background-color: #fa5252;
+  background-color: var(--red-button-color);
 }
 
 .form_button:hover {

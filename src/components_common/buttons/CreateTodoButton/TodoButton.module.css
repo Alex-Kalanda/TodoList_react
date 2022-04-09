@@ -10,7 +10,7 @@
 }
 
 .createNewButton {
-  background-color: #40c057;
+  background-color: var(--green-button-color);
   color: black;
 }
 
@@ -20,7 +20,7 @@
 
 .form__button,
 .updateButton {
-  background-color: #228be6;
+  background-color: var(--blue-button-color);
 }
 
 .form__button:hover,

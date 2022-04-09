@@ -14,7 +14,15 @@ const MainPage = () => {
   const { isLoading, isEditMode, isModalActive, activeTodo, todos } = state;
 
   const todoList = todos.map((todo: TodoResponse) => {
-    return <TodoCard key={todo.id} onDelete={handler.onDelete} onOpenEditModal={handler.onOpenEditModal} {...todo} />;
+    return (
+      <TodoCard
+        key={todo.id}
+        onDelete={handler.onDelete}
+        onUpdate={handler.onUpdate}
+        onOpenEditModal={handler.onOpenEditModal}
+        {...todo}
+      />
+    );
   });
 
   const content = (

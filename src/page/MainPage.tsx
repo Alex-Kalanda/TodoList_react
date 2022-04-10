@@ -4,15 +4,24 @@ import { TodoResponse } from './components/Card/TodoCard.props';
 import { CreateTodoButtonNew, Preloader } from '../components_common';
 import Modal from '../components_common/Modal/Modal';
 import useManageMainPage from '../hooks/useManageMainPage';
-import { EmptyCard, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
+import { EmptyCard, EmptyCardFilter, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
 
 const MainPage = () => {
   const { handler, state } = useManageMainPage();
   const { isLoading, isEditMode, isModalActive, activeTodo, todos, displayedTodos, filter } = state;
 
+  const innerTextFilter: Record<string, string> = {
+    // keys based on TodoStatus
+    all: 'All',
+    todo: 'Todo',
+    in_progress: 'In progress',
+    completed: 'Done',
+  };
+
   const todoList = (
     <>
       <FilterBar onFilter={handler.onFilter} activeFilter={filter} />
+      {displayedTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[filter]} />}
       {displayedTodos.map((todo: TodoResponse) => {
         return (
           <TodoCard

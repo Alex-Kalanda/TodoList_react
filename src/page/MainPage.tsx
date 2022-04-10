@@ -22,6 +22,7 @@ const MainPage = () => {
     <>
       <FilterBar onFilter={handler.onFilter} activeFilter={filter} />
       {displayedTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[filter]} />}
+
       {displayedTodos.map((todo: TodoResponse) => {
         return (
           <TodoCard

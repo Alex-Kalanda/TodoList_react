@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './FilterBar.module.css';
 import cn from 'classnames';
 import { FilterBarProps } from './FilterBar.props';
 import { TodoStatus } from '../../../enums/enums';
 
-const FilterBar = ({ onFilter }: FilterBarProps): JSX.Element => {
+const FilterBar = ({ onFilter, activeFilter }: FilterBarProps): JSX.Element => {
   const filters = ['all', ...Object.values(TodoStatus)];
   const innerText = ['All', 'Todo', 'In progress', 'Done'];
 
-  const [activeButton, setActiveButton] = useState(filters[0]);
-
   const buttonList = filters.map((filter: string, idx: number) => {
     const buttonStyles = cn(styles.button, {
-      [styles.active]: activeButton === filter,
+      [styles.active]: activeFilter === filter,
     });
     const handlerOnClick = () => {
       onFilter(filter);
-      setActiveButton(filter);
     };
 
     return (

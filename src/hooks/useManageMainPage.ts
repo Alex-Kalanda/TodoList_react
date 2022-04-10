@@ -11,6 +11,8 @@ const initState: MainPageState = {
   isModalActive: false,
   activeTodo: { id: '', title: '', description: '', status: '' },
   todos: [],
+  displayedTodos: [],
+  filter: 'all',
 };
 
 const ACTION = 'action;';
@@ -26,15 +28,15 @@ function reducer(state: MainPageState, action: MainPageAction): MainPageState {
 
 const useManageMainPage = () => {
   const [state, dispatch] = useReducer(reducer, initState);
-  const { activeTodo, todos } = state;
+  const { activeTodo, todos, filter } = state;
 
   const getTodos = () => {
     axios
       .get(`${process.env.REACT_APP_TODO_ENDPOINT}`)
       .then((response: AxiosResponse) => {
         if (response.data) {
-          const displayedTodos = response.data.slice(-AMOUNT_DISPLAYED_TODOS);
-          dispatch({ type: ACTION, payload: { todos: displayedTodos, isLoading: false } });
+          const todos = response.data;
+          dispatch({ type: ACTION, payload: { todos, isLoading: false } });
         }
       })
       .catch((error) => {
@@ -45,6 +47,13 @@ const useManageMainPage = () => {
   useEffect(() => {
     getTodos();
   }, []);
+
+  useEffect(() => {
+    const filteredTodos = filter === 'all' ? todos : todos.filter(({ status }) => status === filter);
+    const displayedTodos = filteredTodos.slice(-AMOUNT_DISPLAYED_TODOS);
+
+    dispatch({ type: ACTION, payload: { displayedTodos } });
+  }, [filter, todos]);
 
   const handler = {
     onSubmit: (data: FieldValues) => {
@@ -59,8 +68,8 @@ const useManageMainPage = () => {
         data: data,
       })
         .then((response: AxiosResponse) => {
-          const displayedTodos = [...todos, response.data].slice(-AMOUNT_DISPLAYED_TODOS);
-          dispatch({ type: ACTION, payload: { todos: displayedTodos, isModalActive: false } });
+          const updatedTodos = [...todos, response.data];
+          dispatch({ type: ACTION, payload: { todos: updatedTodos, isModalActive: false } });
         })
         .catch((error) => {
           throw error;
@@ -88,6 +97,9 @@ const useManageMainPage = () => {
           throw error;
         });
     },
+    onFilter: (target: string) => {
+      dispatch({ type: ACTION, payload: { filter: target } });
+    },
     onDelete: (id: string) => {
       axios({
         url: process.env.REACT_APP_TODO_ENDPOINT,
@@ -98,8 +110,8 @@ const useManageMainPage = () => {
         data: { id: id },
       })
         .then((response: AxiosResponse) => {
-          const displayedTodos = response.data.slice(-AMOUNT_DISPLAYED_TODOS);
-          dispatch({ type: ACTION, payload: { todos: displayedTodos } });
+          const todos = response.data;
+          dispatch({ type: ACTION, payload: { todos } });
         })
         .catch((error) => {
           throw error;

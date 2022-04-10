@@ -8,22 +8,28 @@ import Modal from '../components_common/Modal/Modal';
 import FormEditTodo from './components/form/FormEditTodo';
 import FormCreateTodo from './components/form/FormCreateTodo';
 import useManageMainPage from '../hooks/useManageMainPage';
+import FilterBar from './components/FilterBar/FilterBar';
 
 const MainPage = () => {
   const { handler, state } = useManageMainPage();
-  const { isLoading, isEditMode, isModalActive, activeTodo, todos } = state;
+  const { isLoading, isEditMode, isModalActive, activeTodo, todos, displayedTodos } = state;
 
-  const todoList = todos.map((todo: TodoResponse) => {
-    return (
-      <TodoCard
-        key={todo.id}
-        onDelete={handler.onDelete}
-        onUpdate={handler.onUpdate}
-        onOpenEditModal={handler.onOpenEditModal}
-        {...todo}
-      />
-    );
-  });
+  const todoList = (
+    <>
+      <FilterBar onFilter={handler.onFilter} />
+      {displayedTodos.map((todo: TodoResponse) => {
+        return (
+          <TodoCard
+            key={todo.id}
+            onDelete={handler.onDelete}
+            onUpdate={handler.onUpdate}
+            onOpenEditModal={handler.onOpenEditModal}
+            {...todo}
+          />
+        );
+      })}
+    </>
+  );
 
   const content = (
     <main className={styles.page}>

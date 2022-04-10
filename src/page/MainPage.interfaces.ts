@@ -6,7 +6,10 @@ export interface MainPageState {
   isModalActive: boolean;
   activeTodo: TodoData;
   todos: TodoResponse[];
+  displayedTodos: TodoResponse[];
+  filter: string;
 }
+
 export interface MainPageAction {
   type: string;
   payload: {
@@ -15,5 +18,7 @@ export interface MainPageAction {
     isModalActive?: boolean;
     activeTodo?: TodoData;
     todos?: TodoResponse[];
+    displayedTodos?: TodoResponse[];
+    filter?: string;
   };
 }

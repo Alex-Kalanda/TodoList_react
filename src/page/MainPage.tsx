@@ -8,11 +8,11 @@ import { EmptyCard, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './
 
 const MainPage = () => {
   const { handler, state } = useManageMainPage();
-  const { isLoading, isEditMode, isModalActive, activeTodo, todos, displayedTodos } = state;
+  const { isLoading, isEditMode, isModalActive, activeTodo, todos, displayedTodos, filter } = state;
 
   const todoList = (
     <>
-      <FilterBar onFilter={handler.onFilter} />
+      <FilterBar onFilter={handler.onFilter} activeFilter={filter} />
       {displayedTodos.map((todo: TodoResponse) => {
         return (
           <TodoCard

@@ -1,9 +1,9 @@
-import { MainPageAction, MainPageState } from '../page/MainPage.interfaces';
+import { MainPageAction, MainPageState } from '../page/MainPage/MainPage.interfaces';
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { AMOUNT_DISPLAYED_TODOS } from '../VARS';
-import { TodoData } from '../page/components/Card/TodoCard.props';
 import { FieldValues } from 'react-hook-form';
+import { TodoData } from '../page/MainPage/components/Card/TodoCard.props';
 
 const initState: MainPageState = {
   isLoading: true,

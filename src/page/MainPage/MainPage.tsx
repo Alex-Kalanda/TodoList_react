@@ -1,15 +1,10 @@
 import React from 'react';
-import EmptyCard from './components/EmptyCard/EmptyCard';
 import styles from './MainPage.module.css';
+import { CreateTodoButtonNew, Modal, Preloader } from '../../components_common';
+import useManageMainPage from '../../hooks/useManageMainPage';
+import Header from '../../layout/Header/Header';
+import { EmptyCard, EmptyCardFilter, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
 import { TodoResponse } from './components/Card/TodoCard.props';
-import TodoCard from './components/Card/TodoCard';
-import { CreateTodoButtonNew, Preloader } from '../components_common';
-import Modal from '../components_common/Modal/Modal';
-import FormEditTodo from './components/form/FormEditTodo';
-import FormCreateTodo from './components/form/FormCreateTodo';
-import useManageMainPage from '../hooks/useManageMainPage';
-import FilterBar from './components/FilterBar/FilterBar';
-import EmptyCardFilter from './components/EmptyCard/EmptyCardFilter';
 
 const MainPage = () => {
   const { handler, state } = useManageMainPage();
@@ -59,7 +54,12 @@ const MainPage = () => {
     </main>
   );
 
-  return isLoading ? <Preloader /> : content;
+  return (
+    <>
+      <Header />
+      {isLoading ? <Preloader /> : content}
+    </>
+  );
 };
 
 export default MainPage;

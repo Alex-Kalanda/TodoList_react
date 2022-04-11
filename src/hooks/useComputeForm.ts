@@ -1,4 +1,4 @@
-import styles from '../page/components/form/FormTodo.module.css';
+import styles from '../page/MainPage/components/form/FormTodo.module.css';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { TodoStatus } from '../enums/enums';
 

@@ -1,12 +1,14 @@
 import React from 'react';
-import Header from './layout/Header/Header';
-import MainPage from './page/MainPage';
+import { MainPage, TodoPage } from './page';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <MainPage />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/todo/:id" element={<TodoPage />} />
+      </Routes>
     </div>
   );
 }

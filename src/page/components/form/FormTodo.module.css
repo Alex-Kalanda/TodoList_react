@@ -1,0 +1,33 @@
+.form {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__label {
+  align-self: flex-start;
+  margin-bottom: 5px;
+}
+
+.form__title {
+  border: 2px black solid;
+  margin-bottom: 1.5rem;
+  padding: 5px;
+}
+
+.form__description {
+  border: 2px black solid;
+  padding: 5px;
+  min-height: 6rem;
+  margin-bottom: 1.5rem;
+}
+
+.form__buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form__warning {
+  color: red;
+}

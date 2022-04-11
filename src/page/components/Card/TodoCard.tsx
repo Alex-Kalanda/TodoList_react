@@ -1,8 +1,8 @@
 import React from 'react';
 import { TodoCardProps } from './TodoCard.props';
 import styles from './TodoCard.module.css';
+import { StatusBox } from '../../components';
 import { DeleteTodoButton, EditTodoButton } from '../../../components_common';
-import StatusBox from './StatusBox/StatusBox';
 
 const TodoCard = (props: TodoCardProps): JSX.Element => {
   const { id, title, description, status, onDelete, onOpenEditModal, onUpdate } = props;

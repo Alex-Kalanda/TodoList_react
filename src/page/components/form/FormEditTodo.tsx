@@ -16,16 +16,14 @@ const FormEditTodo = ({ onUpdate, onClose, editValues }: FormEditTodoProps): JSX
     <>
       <form className={styles.form} onSubmit={handler.onUpdate}>
         <label className={styles.form__label} htmlFor="title">
-          Title
+          Title <span className={styles.form__warning}>{settings.input.error}</span>
         </label>
         <input {...settings.input} />
-        <span>{settings.input.error}</span>
 
         <label className={styles.form__label} htmlFor="description">
-          Description
+          Description <span className={styles.form__warning}>{settings.textArea.error}</span>
         </label>
         <textarea {...settings.textArea} />
-        <span>{settings.textArea.error}</span>
 
         <div className={styles.form__buttonContainer}>
           <UpdateTodoButton className={styles.form__create} />

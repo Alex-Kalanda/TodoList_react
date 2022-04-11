@@ -27,22 +27,6 @@ const FormEditTodo = ({ onUpdate, onClose, editValues }: FormEditTodoProps): JSX
         <textarea {...settings.textArea} />
         <span>{settings.textArea.error}</span>
 
-        <fieldset className={styles.form__fieldset}>
-          <legend>Choose status of {'TODO'}</legend>
-          <div>
-            <input {...settings.status.todo} />
-            <label htmlFor="todo">Need to do!</label>
-          </div>
-          <div>
-            <input {...settings.status.inProgress} />
-            <label htmlFor="inProgress">In progress...</label>
-          </div>
-          <div>
-            <input {...settings.status.completed} />
-            <label htmlFor="completed">Finished</label>
-          </div>
-        </fieldset>
-
         <div className={styles.form__buttonContainer}>
           <UpdateTodoButton className={styles.form__create} />
           <CancelButton onClick={handlerOnClose} className={styles.form__cancel} />

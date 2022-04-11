@@ -6,17 +6,17 @@ import Modal from '../components_common/Modal/Modal';
 import useManageMainPage from '../hooks/useManageMainPage';
 import { EmptyCard, EmptyCardFilter, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
 
+const innerTextFilter: Record<string, string> = {
+  // keys based on TodoStatus
+  all: 'All',
+  todo: 'Todo',
+  in_progress: 'In progress',
+  completed: 'Done',
+};
+
 const MainPage = () => {
   const { handler, state } = useManageMainPage();
   const { isLoading, isEditMode, isModalActive, activeTodo, todos, displayedTodos, filter } = state;
-
-  const innerTextFilter: Record<string, string> = {
-    // keys based on TodoStatus
-    all: 'All',
-    todo: 'Todo',
-    in_progress: 'In progress',
-    completed: 'Done',
-  };
 
   const todoList = (
     <>

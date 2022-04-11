@@ -1,13 +1,10 @@
 import React from 'react';
-import EmptyCard from './components/EmptyCard/EmptyCard';
 import styles from './MainPage.module.css';
 import { TodoResponse } from './components/Card/TodoCard.props';
-import TodoCard from './components/Card/TodoCard';
 import { CreateTodoButtonNew, Preloader } from '../components_common';
 import Modal from '../components_common/Modal/Modal';
-import FormEditTodo from './components/form/FormEditTodo';
-import FormCreateTodo from './components/form/FormCreateTodo';
 import useManageMainPage from '../hooks/useManageMainPage';
+import { EmptyCard, FormCreateTodo, FormEditTodo, TodoCard } from './components';
 
 const MainPage = () => {
   const { handler, state } = useManageMainPage();

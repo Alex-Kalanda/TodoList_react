@@ -4,6 +4,14 @@ import styles from './StatusBox.module.css';
 import { StatusBoxProps } from './StatusBox.props';
 import { TodoStatus } from '../../../../enums/enums';
 
+const statuses = ['todo', 'in_progress', 'completed'];
+const innerText: Record<string, string> = {
+  // keys based on status
+  todo: 'Todo',
+  in_progress: 'In progress',
+  completed: 'Done',
+};
+
 const StatusBox = ({ id, status, className, onUpdate }: StatusBoxProps): JSX.Element => {
   const [isActive, setActive] = useState(false);
 
@@ -13,6 +21,10 @@ const StatusBox = ({ id, status, className, onUpdate }: StatusBoxProps): JSX.Ele
   const handlerSwitchDD = () => {
     setActive((prev) => !prev);
   };
+  const handlerOnUpdateStatus = (status: string) => {
+    onUpdate({ id, status });
+    setActive(false);
+  };
 
   const boxStyles = cn(className, styles.container, {
     [styles.planned]: status === TodoStatus.planned,
@@ -20,25 +32,19 @@ const StatusBox = ({ id, status, className, onUpdate }: StatusBoxProps): JSX.Ele
     [styles.completed]: status === TodoStatus.completed,
   });
 
-  const statuses = ['todo', 'in_progress', 'completed'];
-  const innerText: Record<string, string> = {
-    // keys based on status
-    todo: 'Todo',
-    in_progress: 'In progress',
-    completed: 'Done',
-  };
-
   const listOfStatus = (
     <>
       <div className={styles.background} onClick={handlerOnCloseDD} />
       <div className={styles.list}>
         {statuses.map((status: string) => {
-          const handlerOnUpdateStatus = () => {
-            onUpdate({ id, status });
-            setActive(false);
-          };
           return (
-            <div key={status} className={styles.list__item} onClick={handlerOnUpdateStatus}>
+            <div
+              key={status}
+              className={styles.list__item}
+              onClick={() => {
+                handlerOnUpdateStatus(status);
+              }}
+            >
               {innerText[status]}
             </div>
           );

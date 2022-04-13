@@ -1,3 +1,5 @@
+import { FieldValues } from 'react-hook-form';
+
 export interface TodoRequest {
   title: string;
   description: string;
@@ -21,4 +23,5 @@ export interface TodoData {
 export interface TodoCardProps extends TodoResponse {
   onDelete: (id: string) => void;
   onOpenEditModal: (todo: TodoData) => void;
+  onUpdate: (data: FieldValues) => void;
 }

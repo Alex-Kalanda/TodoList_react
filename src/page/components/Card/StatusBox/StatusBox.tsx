@@ -15,15 +15,15 @@ const innerText: Record<string, string> = {
 const StatusBox = ({ id, status, className, onUpdate }: StatusBoxProps): JSX.Element => {
   const [isActive, setActive] = useState(false);
 
-  const handlerOnCloseDD = () => {
+  const handleOnClose = () => {
     setActive(false);
   };
-  const handlerSwitchDD = () => {
+  const handleOnSwitch = () => {
     setActive((prev) => !prev);
   };
-  const handlerOnUpdateStatus = (status: string) => {
+  const handleOnUpdateStatus = (status: string) => () => {
     onUpdate({ id, status });
-    setActive(false);
+    handleOnClose();
   };
 
   const boxStyles = cn(className, styles.container, {
@@ -34,17 +34,11 @@ const StatusBox = ({ id, status, className, onUpdate }: StatusBoxProps): JSX.Ele
 
   const listOfStatus = (
     <>
-      <div className={styles.background} onClick={handlerOnCloseDD} />
+      <div className={styles.background} onClick={handleOnClose} />
       <div className={styles.list}>
         {statuses.map((status: string) => {
           return (
-            <div
-              key={status}
-              className={styles.list__item}
-              onClick={() => {
-                handlerOnUpdateStatus(status);
-              }}
-            >
+            <div key={status} className={styles.list__item} onClick={handleOnUpdateStatus(status)}>
               {innerText[status]}
             </div>
           );
@@ -55,7 +49,7 @@ const StatusBox = ({ id, status, className, onUpdate }: StatusBoxProps): JSX.Ele
 
   return (
     <div className={boxStyles}>
-      <button className={styles.dropdown__button} onClick={handlerSwitchDD}>
+      <button className={styles.dropdown__button} onClick={handleOnSwitch}>
         {innerText[status]}
       </button>
       {isActive && listOfStatus}

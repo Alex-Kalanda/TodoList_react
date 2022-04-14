@@ -1,4 +1,4 @@
-import MainPage from './MainPage/MainPage';
-import TodoPage from './TodoPage/TodoPage';
+import MainPage from './MainPage';
+import TodoPage from './TodoPage';
 
 export { MainPage, TodoPage };

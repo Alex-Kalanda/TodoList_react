@@ -3,26 +3,19 @@ import styles from './TodoPage.module.css';
 import Header from '../../layout/Header/Header';
 import { useParams } from 'react-router-dom';
 import useTodoData from '../../hooks/useTodoData';
-import { Description, Title } from './components';
 import { Preloader } from '../../components_common';
+import PageContent from './components/PageContent';
 
 const TodoPage = () => {
   const { id = '0' } = useParams();
   const todo = useTodoData({ id });
-
-  const content = (
-    <div className={styles.content}>
-      <Title data={todo?.title} />
-      <Description data={todo?.description} />
-    </div>
-  );
 
   return (
     <>
       <Header />
       <div className={styles.container}>
         <aside className={styles.aside} />
-        {todo ? content : <Preloader />}
+        {todo ? <PageContent {...todo} /> : <Preloader />}
       </div>
     </>
   );

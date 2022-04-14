@@ -7,7 +7,7 @@ import { Description, Title } from './components';
 import { Preloader } from '../../components_common';
 
 const TodoPage = () => {
-  const { id } = useParams();
+  const { id = '0' } = useParams();
   const todo = useTodoData({ id });
 
   const content = (

@@ -6,7 +6,7 @@ import CancelButton from './buttons/CancelButton/CancelButton';
 import EditTodoButton from './buttons/EditTodoButton/EditTodoButton';
 import UpdateTodoButton from './buttons/CreateTodoButton/UpdateTodoButton';
 import CloseFormButton from './buttons/CloseFormButton/CloseFormButton';
-import Modal from './Modal/Modal';
+import Modal from './Modal';
 
 export {
   Preloader,

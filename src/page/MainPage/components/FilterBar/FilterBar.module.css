@@ -11,6 +11,7 @@
   flex-wrap: wrap;
   background-color: var(--filter-bar-bg-color);
 }
+
 .button {
   height: 40px;
   padding: 0 20px;
@@ -22,16 +23,20 @@
   background-color: var(--filter-button-color-base);
   cursor: pointer;
 }
+
 .button:hover {
   background-color: #a0a0a0;
 }
+
 .button:active {
   transform: scale(0.95);
   transition: all 50ms;
 }
+
 .active {
   background-color: var(--filter-active-button-color);
 }
+
 .active:hover {
   background-color: #6dafe9;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './MainPage.module.css';
-import { TodoResponse } from './components/Card/TodoCard.props';
-import { CreateTodoButtonNew, Preloader } from '../components_common';
-import Modal from '../components_common/Modal/Modal';
-import useManageMainPage from '../hooks/useManageMainPage';
+import { CreateTodoButtonNew, Modal, Preloader } from '../../components_common';
+import useManageMainPage from '../../hooks/useManageMainPage';
+import Header from '../../layout/Header/Header';
 import { EmptyCard, EmptyCardFilter, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
+import { TodoResponse } from './components/Card/TodoCard.props';
 
 const innerTextFilter: Record<string, string> = {
   // keys based on TodoStatus
@@ -54,7 +54,12 @@ const MainPage = () => {
     </main>
   );
 
-  return isLoading ? <Preloader /> : content;
+  return (
+    <>
+      <Header />
+      {isLoading ? <Preloader /> : content}
+    </>
+  );
 };
 
 export default MainPage;

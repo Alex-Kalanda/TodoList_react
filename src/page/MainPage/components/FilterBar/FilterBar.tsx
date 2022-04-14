@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './FilterBar.module.css';
 import cn from 'classnames';
 import { FilterBarProps } from './FilterBar.props';
-import { TodoStatus } from '../../../enums/enums';
+import { TodoStatus } from '../../../../enums/enums';
 
 const FilterBar = ({ onFilter, activeFilter }: FilterBarProps): JSX.Element => {
   const filters = ['all', ...Object.values(TodoStatus)];

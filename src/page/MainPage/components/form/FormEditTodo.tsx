@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormEditTodoProps } from './FormTodo.props';
 import styles from './FormTodo.module.css';
-import { CancelButton, UpdateTodoButton } from '../../../components_common';
-import useComputeForm from '../../../hooks/useComputeForm';
+import { CancelButton, UpdateTodoButton } from '../../../../components_common';
+import useComputeForm from '../../../../hooks/useComputeForm';
 
 const FormEditTodo = ({ onUpdate, onClose, editValues }: FormEditTodoProps): JSX.Element => {
   const { settings, handler } = useComputeForm({ onUpdate, editValues });

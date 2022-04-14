@@ -6,8 +6,12 @@ interface UseTodoData {
 }
 
 const getSingleTodo = async (id: string) => {
-  const response: Response = await fetch(`${process.env.REACT_APP_TODO_ENDPOINT}/${id}`);
-  return response.json();
+  try {
+    const response: Response = await fetch(`${process.env.REACT_APP_TODO_ENDPOINT}/${id}`);
+    return response.json();
+  } catch (e) {
+    throw e;
+  }
 };
 
 const useTodoData = ({ id }: UseTodoData): TodoResponse | null => {

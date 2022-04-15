@@ -14,8 +14,7 @@ const TodoCard = (props: TodoCardProps): JSX.Element => {
     onDelete(id);
   };
   const handlerOnOpenEditModal = () => {
-    const todo = { id, title, description, status };
-    onOpenEditModal(todo);
+    onOpenEditModal(id);
   };
   const handlerOnRedirect = () => {
     navigate(`/todo/${id}`);

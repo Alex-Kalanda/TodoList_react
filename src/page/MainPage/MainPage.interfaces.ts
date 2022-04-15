@@ -1,12 +1,11 @@
-import { TodoData, TodoResponse } from './components/Card/TodoCard.props';
+import { Todo } from './components/Card/TodoCard.props';
 
 export interface MainPageState {
   isLoading: boolean;
   isEditMode: boolean;
   isModalActive: boolean;
-  activeTodo: TodoData;
-  todos: TodoResponse[];
-  displayedTodos: TodoResponse[];
+  activeTodoID: string;
+  todos: Todo[];
   filter: string;
 }
 
@@ -16,9 +15,8 @@ export interface MainPageAction {
     isLoading?: boolean;
     isEditMode?: boolean;
     isModalActive?: boolean;
-    activeTodo?: TodoData;
-    todos?: TodoResponse[];
-    displayedTodos?: TodoResponse[];
+    activeTodoID?: string;
+    todos?: Todo[];
     filter?: string;
   };
 }

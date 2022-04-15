@@ -1,17 +1,14 @@
-import { MainPageAction, MainPageState } from '../page/MainPage/MainPage.interfaces';
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { AMOUNT_DISPLAYED_TODOS } from '../VARS';
 import { FieldValues } from 'react-hook-form';
-import { TodoData } from '../page/MainPage/components/Card/TodoCard.props';
+import { MainPageAction, MainPageState } from '../page/MainPage/MainPage.interfaces';
 
 const initState: MainPageState = {
   isLoading: true,
   isEditMode: false,
   isModalActive: false,
-  activeTodo: { id: '', title: '', description: '', status: '' },
+  activeTodoID: '',
   todos: [],
-  displayedTodos: [],
   filter: 'all',
 };
 
@@ -28,16 +25,14 @@ function reducer(state: MainPageState, action: MainPageAction): MainPageState {
 
 const useManageMainPage = () => {
   const [state, dispatch] = useReducer(reducer, initState);
-  const { activeTodo, todos, filter } = state;
+  const { activeTodoID, todos } = state;
 
   const getTodos = () => {
     axios
       .get(`${process.env.REACT_APP_TODO_ENDPOINT}`)
       .then((response: AxiosResponse) => {
-        if (response.data) {
-          const todos = response.data;
-          dispatch({ type: ACTION, payload: { todos, isLoading: false } });
-        }
+        const todos = response.data;
+        dispatch({ type: ACTION, payload: { todos, isLoading: false } });
       })
       .catch((error) => {
         throw error;
@@ -47,13 +42,6 @@ const useManageMainPage = () => {
   useEffect(() => {
     getTodos();
   }, []);
-
-  useEffect(() => {
-    const filteredTodos = filter === 'all' ? todos : todos.filter(({ status }) => status === filter);
-    const displayedTodos = filteredTodos.slice(-AMOUNT_DISPLAYED_TODOS);
-
-    dispatch({ type: ACTION, payload: { displayedTodos } });
-  }, [filter, todos]);
 
   const handler = {
     onSubmit: (data: FieldValues) => {
@@ -83,7 +71,7 @@ const useManageMainPage = () => {
           'Content-Type': 'application/json',
         },
         data: {
-          id: activeTodo?.id,
+          id: activeTodoID,
           ...data,
         },
       })
@@ -120,8 +108,8 @@ const useManageMainPage = () => {
     onOpenCreateModal: () => {
       dispatch({ type: ACTION, payload: { isModalActive: true, isEditMode: false } });
     },
-    onOpenEditModal: (todo: TodoData) => {
-      dispatch({ type: ACTION, payload: { activeTodo: todo, isEditMode: true, isModalActive: true } });
+    onOpenEditModal: (id: string) => {
+      dispatch({ type: ACTION, payload: { activeTodoID: id, isEditMode: true, isModalActive: true } });
     },
     onCloseModal: () => {
       dispatch({ type: ACTION, payload: { isModalActive: false, isEditMode: false } });

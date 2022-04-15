@@ -4,7 +4,8 @@ import styles from './StatusBox.module.css';
 import { StatusBoxProps } from './StatusBox.props';
 import { TodoStatus } from '../../../../../enums/enums';
 
-const statuses = ['todo', 'in_progress', 'completed'];
+const statuses = Object.values(TodoStatus);
+
 const innerText: Record<string, string> = {
   // keys based on status
   todo: 'Todo',

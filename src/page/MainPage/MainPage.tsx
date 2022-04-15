@@ -4,7 +4,8 @@ import { CreateTodoButtonNew, Modal, Preloader } from '../../components_common';
 import useManageMainPage from '../../hooks/useManageMainPage';
 import Header from '../../layout/Header/Header';
 import { EmptyCard, EmptyCardFilter, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
-import { TodoResponse } from './components/Card/TodoCard.props';
+import { Todo } from './components/Card/TodoCard.props';
+import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
 
 const innerTextFilter: Record<string, string> = {
   // keys based on TodoStatus
@@ -16,13 +17,21 @@ const innerTextFilter: Record<string, string> = {
 
 const MainPage = () => {
   const { handler, state } = useManageMainPage();
-  const { isLoading, isEditMode, isModalActive, activeTodo, todos, displayedTodos, filter } = state;
+  const { isLoading, isEditMode, isModalActive, activeTodoID, todos, filter } = state;
+
+  const getActiveTodo = (): Todo => {
+    return todos.filter(({ id }) => id === activeTodoID)[0];
+  };
+
+  const filteredTodos = todos
+    .filter(({ status }: Todo) => filter === 'all' || filter === status)
+    .slice(-AMOUNT_DISPLAYED_TODOS);
 
   const todoList = (
     <>
       <FilterBar onFilter={handler.onFilter} activeFilter={filter} />
-      {displayedTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[filter]} />}
-      {displayedTodos.map((todo: TodoResponse) => {
+      {filteredTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[filter]} />}
+      {filteredTodos.map((todo: Todo) => {
         return (
           <TodoCard
             key={todo.id}
@@ -45,7 +54,7 @@ const MainPage = () => {
       {isModalActive && (
         <Modal setActive={handler.onSetModalActive} onClose={handler.onCloseModal}>
           {isEditMode ? (
-            <FormEditTodo editValues={activeTodo} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
+            <FormEditTodo editTodo={getActiveTodo()} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
           ) : (
             <FormCreateTodo onSubmit={handler.onSubmit} onClose={handler.onCloseModal} />
           )}

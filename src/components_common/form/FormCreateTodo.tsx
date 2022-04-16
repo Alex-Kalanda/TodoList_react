@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './FormTodo.module.css';
 import { FormCreateTodoProps } from './FormTodo.props';
-import { CancelButton, CreateTodoButton } from '../../../../components_common';
-import { useComputeForm } from '../../../../hooks';
+import { useComputeForm } from '../../hooks';
+import { CancelButton, CreateTodoButton } from '../index';
 
 const FormCreateTodo = ({ onSubmit, onClose }: FormCreateTodoProps): JSX.Element => {
   const { settings, handler } = useComputeForm({ onSubmit });

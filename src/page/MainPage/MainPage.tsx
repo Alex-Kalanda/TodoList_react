@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './MainPage.module.css';
-import { CreateTodoButtonNew, Modal, Preloader } from '../../components_common';
+import { CreateTodoButtonNew, FormCreateTodo, FormEditTodo, Modal, Preloader } from '../../components_common';
 import useManageMainPage from '../../hooks/useManageMainPage';
-import Header from '../../layout/Header/Header';
-import { EmptyCard, EmptyCardFilter, FilterBar, FormCreateTodo, FormEditTodo, TodoCard } from './components';
+import { EmptyCard, EmptyCardFilter, FilterBar, TodoCard } from './components';
 import { Todo } from './components/Card/TodoCard.props';
 import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
+import Header from '../../layout/Header';
 
 const innerTextFilter: Record<string, string> = {
   // keys based on TodoStatus

@@ -6,3 +6,7 @@
 .aside {
   background-color: var(--todo-bg);
 }
+
+.content {
+  margin: 0 auto 75px;
+}

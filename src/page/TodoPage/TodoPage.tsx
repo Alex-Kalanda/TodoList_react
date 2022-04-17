@@ -8,14 +8,14 @@ import { useTodoData } from '../../hooks';
 
 const TodoPage = () => {
   const { id = '0' } = useParams();
-  const todo = useTodoData({ id });
+  const { todo, isLoading } = useTodoData({ id });
 
   return (
     <>
       <Header />
       <div className={styles.container}>
         <aside className={styles.aside} />
-        {todo ? <PageContent {...todo} /> : <Preloader />}
+        {isLoading ? <Preloader /> : <PageContent {...todo} />}
       </div>
     </>
   );

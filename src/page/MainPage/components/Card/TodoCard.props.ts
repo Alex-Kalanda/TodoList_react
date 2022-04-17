@@ -9,6 +9,14 @@ export interface Todo {
   modifiedAt?: string;
 }
 
+export const emptyTodo = {
+  id: '',
+  title: '',
+  description: '',
+  status: '',
+  createdAt: '',
+};
+
 export interface TodoCardProps extends Todo {
   onDelete: (id: string) => void;
   onOpenEditModal: (id: string) => void;

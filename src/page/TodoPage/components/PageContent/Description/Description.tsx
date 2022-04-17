@@ -6,7 +6,7 @@ const Description = ({ data }: DescriptionProps): JSX.Element => {
   return (
     <div>
       <h3 className={styles.caption}>Description</h3>
-      <div className={styles.description}>{data}</div>
+      <p className={styles.description}>{data}</p>
     </div>
   );
 };

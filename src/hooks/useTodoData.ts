@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Todo } from '../page/MainPage/components/Card/TodoCard.props';
+import { useEffect, useState } from 'react';
+import { emptyTodo } from '../page/MainPage/components/Card/TodoCard.props';
 
 interface UseTodoData {
   id: string;
@@ -14,14 +14,18 @@ const getSingleTodo = async (id: string) => {
   }
 };
 
-const useTodoData = ({ id }: UseTodoData): Todo | null => {
-  const [todo, setTodo] = useState<Todo | null>(null);
+const useTodoData = ({ id }: UseTodoData) => {
+  const [todo, setTodo] = useState(emptyTodo);
+  const [isLoading, setIsLoading] = useState(true);
 
-  getSingleTodo(id).then((response) => {
-    setTodo(response);
-  });
+  useEffect(() => {
+    getSingleTodo(id).then((response) => {
+      setTodo(response);
+      setIsLoading(false);
+    });
+  }, [id]);
 
-  return todo;
+  return { todo, isLoading };
 };
 
 export default useTodoData;

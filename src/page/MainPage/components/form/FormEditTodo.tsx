@@ -5,7 +5,7 @@ import { CancelButton, UpdateTodoButton } from '../../../../components_common';
 import { useComputeForm } from '../../../../hooks';
 
 const FormEditTodo = ({ onUpdate, onClose, editTodo }: FormEditTodoProps): JSX.Element => {
-  const { settings, handler } = useComputeForm({ onUpdate, editTodo: editTodo });
+  const { settings, handler } = useComputeForm({ onUpdate, editTodo });
 
   const handlerOnClose = () => {
     onClose();

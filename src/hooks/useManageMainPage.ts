@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { FieldValues } from 'react-hook-form';
 import { MainPageAction, MainPageState } from '../page/MainPage/MainPage.interfaces';
+import { BASE_URL } from '../VARS';
 
 const initState: MainPageState = {
   isLoading: true,
@@ -29,7 +30,7 @@ const useManageMainPage = () => {
 
   const getTodos = () => {
     axios
-      .get(`${process.env.REACT_APP_TODO_ENDPOINT}`)
+      .get(`${BASE_URL}`)
       .then((response: AxiosResponse) => {
         const todos = response.data;
         dispatch({ type: ACTION, payload: { todos, isLoading: false } });
@@ -46,7 +47,7 @@ const useManageMainPage = () => {
   const handler = {
     onSubmit: (data: FieldValues) => {
       axios({
-        url: process.env.REACT_APP_TODO_ENDPOINT,
+        url: BASE_URL,
         method: 'post',
         params: {
           headers: {
@@ -65,7 +66,7 @@ const useManageMainPage = () => {
     },
     onUpdate: (data: FieldValues) => {
       axios({
-        url: process.env.REACT_APP_TODO_ENDPOINT,
+        url: BASE_URL,
         method: 'patch',
         params: {
           'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ const useManageMainPage = () => {
     },
     onDelete: (id: string) => {
       axios({
-        url: process.env.REACT_APP_TODO_ENDPOINT,
+        url: BASE_URL,
         method: 'delete',
         params: {
           'Content-Type': 'application/json',
@@ -113,9 +114,6 @@ const useManageMainPage = () => {
     },
     onCloseModal: () => {
       dispatch({ type: ACTION, payload: { isModalActive: false, isEditMode: false } });
-    },
-    onSetModalActive: (value: boolean) => {
-      dispatch({ type: ACTION, payload: { isModalActive: value } });
     },
   };
 

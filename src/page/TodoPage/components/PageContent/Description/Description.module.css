@@ -1,0 +1,13 @@
+.caption {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.description {
+  min-height: 400px;
+  width: 100%;
+  background-color: var(--todo-bg);
+  padding: 20px;
+  border: 2px black solid;
+  border-radius: 5px;
+}

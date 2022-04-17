@@ -1,7 +1,7 @@
 enum TodoStatus {
   planned = 'todo',
-  completed = 'completed',
   inProgress = 'in_progress',
+  completed = 'completed',
 }
 
 export { TodoStatus };

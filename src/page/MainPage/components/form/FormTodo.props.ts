@@ -1,5 +1,5 @@
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { TodoData } from '../Card/TodoCard.props';
+import { Todo } from '../Card/TodoCard.props';
 
 export interface FormCreateTodoProps {
   onSubmit: SubmitHandler<FieldValues>;
@@ -7,7 +7,7 @@ export interface FormCreateTodoProps {
 }
 
 export interface FormEditTodoProps {
-  editValues: TodoData;
+  editTodo: Todo;
   onUpdate: SubmitHandler<FieldValues>;
   onClose: () => void;
 }

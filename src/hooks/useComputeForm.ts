@@ -1,25 +1,24 @@
-import styles from '../page/components/form/FormTodo.module.css';
+import styles from '../page/MainPage/components/form/FormTodo.module.css';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { TodoStatus } from '../enums/enums';
 
-interface formParam {
+export interface formParam {
   onSubmit?: SubmitHandler<FieldValues>;
   onUpdate?: SubmitHandler<FieldValues>;
-  editValues?: {
+  editTodo?: {
     status?: string;
     title?: string;
     description?: string;
   };
 }
 
-const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
+const useComputeForm = ({ onSubmit, onUpdate, editTodo }: formParam) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
-    defaultValues: { title: editValues?.title, description: editValues?.description, status: editValues?.status },
+    defaultValues: { title: editTodo?.title, description: editTodo?.description, status: editTodo?.status },
     mode: 'all',
   });
 
@@ -55,26 +54,6 @@ const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
           message: '- не может состоять из пробелов',
         },
       }),
-    },
-    status: {
-      todo: {
-        id: 'todo',
-        type: 'radio',
-        value: TodoStatus.planned,
-        ...register('status'),
-      },
-      inProgress: {
-        id: 'inProgress',
-        type: 'radio',
-        value: TodoStatus.inProgress,
-        ...register('status'),
-      },
-      completed: {
-        id: 'completed',
-        type: 'radio',
-        value: TodoStatus.completed,
-        ...register('status'),
-      },
     },
   };
   const handler = {

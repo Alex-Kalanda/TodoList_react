@@ -31,7 +31,6 @@ const TodoPage = () => {
       <Header />
       <div className={styles.container}>
         <aside className={styles.aside} />
-
         {isLoading ? content : <Preloader />}
       </div>
     </>

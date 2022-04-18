@@ -2,14 +2,13 @@ import { MainPageAction, MainPageState } from '../page/MainPage.interfaces';
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { AMOUNT_DISPLAYED_TODOS } from '../VARS';
-import { TodoData } from '../page/components/Card/TodoCard.props';
 import { FieldValues } from 'react-hook-form';
 
 const initState: MainPageState = {
   isLoading: true,
   isEditMode: false,
   isModalActive: false,
-  activeTodo: { id: '', title: '', description: '', status: '' },
+  activeTodo: '',
   todos: [],
 };
 
@@ -74,7 +73,7 @@ const useManageMainPage = () => {
           'Content-Type': 'application/json',
         },
         data: {
-          id: activeTodo?.id,
+          id: activeTodo,
           ...data,
         },
       })
@@ -108,8 +107,8 @@ const useManageMainPage = () => {
     onOpenCreateModal: () => {
       dispatch({ type: ACTION, payload: { isModalActive: true, isEditMode: false } });
     },
-    onOpenEditModal: (todo: TodoData) => {
-      dispatch({ type: ACTION, payload: { activeTodo: todo, isEditMode: true, isModalActive: true } });
+    onOpenEditModal: (id: string) => {
+      dispatch({ type: ACTION, payload: { activeTodo: id, isEditMode: true, isModalActive: true } });
     },
     onCloseModal: () => {
       dispatch({ type: ACTION, payload: { isModalActive: false, isEditMode: false } });
@@ -121,5 +120,3 @@ const useManageMainPage = () => {
 
   return { handler, state };
 };
-
-export default useManageMainPage;

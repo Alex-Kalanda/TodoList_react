@@ -5,14 +5,16 @@ import { TodoStatus } from '../enums/enums';
 interface formParam {
   onSubmit?: SubmitHandler<FieldValues>;
   onUpdate?: SubmitHandler<FieldValues>;
+  onClose: () => void;
   editValues?: {
+    id: string;
     status?: string;
     title?: string;
     description?: string;
   };
 }
 
-const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
+const useComputeForm = ({ onSubmit, onClose, onUpdate, editValues }: formParam) => {
   const {
     register,
     formState: { errors },
@@ -27,6 +29,21 @@ const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
     if (onSubmit) {
       onSubmit(formData);
     }
+    onClose();
+    reset();
+  };
+  const handlerOnUpdate: SubmitHandler<FieldValues> = (formData) => {
+    if (onUpdate) {
+      onUpdate({
+        id: editValues?.id,
+        ...formData,
+      });
+    }
+    onClose();
+    reset();
+  };
+  const handlerOnClose = () => {
+    onClose();
     reset();
   };
 
@@ -77,17 +94,11 @@ const useComputeForm = ({ onSubmit, onUpdate, editValues }: formParam) => {
       },
     },
   };
+
   const handler = {
     onSubmit: handleSubmit(handlerOnSubmit),
-    onUpdate: handleSubmit((formData) => {
-      if (onUpdate) {
-        onUpdate(formData);
-      }
-      reset();
-    }),
-    onClear: () => {
-      reset();
-    },
+    onUpdate: handleSubmit(handlerOnUpdate),
+    onClose: handlerOnClose,
   };
 
   return {

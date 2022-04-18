@@ -1,37 +1,36 @@
 import React, { useEffect } from 'react';
 import styles from './MainPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { TodoResponse } from './components/Card/TodoCard.props';
+import { Todo } from './components/Card/TodoCard.props';
 import { CreateTodoButtonNew, Preloader } from '../components_common';
 import Modal from '../components_common/Modal/Modal';
-import useManageMainPage from '../hooks/useManageMainPage';
 import { EmptyCard, FormCreateTodo, FormEditTodo, TodoCard } from './components';
 import { loadTodos } from '../redux/actions';
 import { State } from '../redux/store';
+import useManageMain from '../hooks/useManageMain';
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const { handler, state } = useManageMainPage();
-  const { isLoading, isEditMode, isModalActive, activeTodo, todos } = state;
+  const h = useManageMain();
 
-  const to = useSelector((state: State) => {
-    console.log('into useSelector__state >>> ', state);
-    return state.todos;
-  });
-
-  console.log('out of useSelector__variable >>> ', to);
+  const { todos, modal, isLoading } = useSelector((state: State) => state);
 
   useEffect(() => {
     dispatch(loadTodos());
   }, []);
 
-  const todoList = todos.map((todo: TodoResponse) => {
+  const getActiveTodo = () => {
+    return todos.list.find(({ id }) => id === todos.active) as Todo;
+  };
+
+  const todoList = todos.list.map((todo: Todo) => {
     return (
       <TodoCard
         key={todo.id}
-        onDelete={handler.onDelete}
-        onUpdate={handler.onUpdate}
-        onOpenEditModal={handler.onOpenEditModal}
+        onDelete={h.onDelete}
+        onUpdate={h.onUpdate}
+        onOpenEditModal={h.onOpenEditModal}
+        onSetActiveTodo={h.onSetActiveTodo}
         {...todo}
       />
     );
@@ -39,16 +38,16 @@ const MainPage = () => {
 
   const content = (
     <main className={styles.page}>
-      {todos.length === 0 ? <EmptyCard /> : todoList}
+      {todos.list.length === 0 ? <EmptyCard /> : todoList}
 
-      <CreateTodoButtonNew className={styles.page__button} onClick={handler.onOpenCreateModal} />
+      <CreateTodoButtonNew className={styles.page__button} onClick={h.onOpenCreateModal} />
 
-      {isModalActive && (
-        <Modal setActive={handler.onSetModalActive} onClose={handler.onCloseModal}>
-          {isEditMode ? (
-            <FormEditTodo editValues={activeTodo} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
+      {modal.isActive && (
+        <Modal onClose={h.onCloseModal}>
+          {modal.isEditMode ? (
+            <FormEditTodo editValues={getActiveTodo()} onUpdate={h.onUpdate} onClose={h.onCloseModal} />
           ) : (
-            <FormCreateTodo onSubmit={handler.onSubmit} onClose={handler.onCloseModal} />
+            <FormCreateTodo onSubmit={h.onCreate} onClose={h.onCloseModal} />
           )}
         </Modal>
       )}

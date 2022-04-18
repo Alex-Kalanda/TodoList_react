@@ -2,53 +2,106 @@ import {
   TODOS_LOAD,
   OPEN_MODAL_CREATE,
   OPEN_MODAL_EDIT,
-  SEND_NEW_TODO,
   UPDATE_TODO,
-  UPDATE_STATUS,
   DELETE_TODO,
+  CREATE_TODO,
+  SET_ACTIVE_TODO,
+  LOADING_DATA,
 } from './types';
 import { ActionTodo } from './store';
+import { FieldValues } from 'react-hook-form';
+import { createTodoApi, deleteTodoApi, getTodosApi, updateTodoApi } from '../API';
 
 export function loadTodos() {
   return async (dispatch: (action: ActionTodo) => void) => {
-    // separate in different function (API)
-    const response = await fetch(`${process.env.REACT_APP_TODO_ENDPOINT}`);
-    const jsonData = await response.json();
+    const resp = await getTodosApi();
     dispatch({
       type: TODOS_LOAD,
       payload: {
-        todos: jsonData,
+        todos: resp,
+      },
+    });
+    dispatch({
+      type: LOADING_DATA,
+      payload: {
+        isLoading: false,
       },
     });
   };
 }
+
+export function createTodo(data: FieldValues) {
+  return async (dispatch: (action: ActionTodo) => void) => {
+    const response = await createTodoApi(data);
+    dispatch({
+      type: CREATE_TODO,
+      payload: {
+        todos: {
+          update: response,
+        },
+      },
+    });
+  };
+}
+export function deleteTodo(id: string) {
+  return async (dispatch: (action: ActionTodo) => void) => {
+    const response = await deleteTodoApi(id);
+    dispatch({
+      type: DELETE_TODO,
+      payload: {
+        todos: response,
+      },
+    });
+  };
+}
+export function updateTodo(data: FieldValues) {
+  return async (dispatch: (action: ActionTodo) => void) => {
+    const response = await updateTodoApi(data);
+    dispatch({
+      type: UPDATE_TODO,
+      payload: {
+        todos: {
+          update: response,
+        },
+      },
+    });
+  };
+}
+
 export function openModalCreate() {
   return {
     type: OPEN_MODAL_CREATE,
+    payload: {
+      isActive: true,
+      isEditMode: false,
+    },
   };
 }
 export function openModalEdit() {
   return {
     type: OPEN_MODAL_EDIT,
+    payload: {
+      isActive: true,
+      isEditMode: true,
+    },
   };
 }
-export function sendNewTodo() {
+export function closeModal() {
   return {
-    type: SEND_NEW_TODO,
+    type: OPEN_MODAL_EDIT,
+    payload: {
+      isActive: false,
+      isEditMode: false,
+    },
   };
 }
-export function updateTodo() {
+export function setActiveTodo(id: string) {
   return {
-    type: UPDATE_TODO,
-  };
-}
-export function updateStatus() {
-  return {
-    type: UPDATE_STATUS,
-  };
-}
-export function deleteTodo() {
-  return {
-    type: DELETE_TODO,
+    type: SET_ACTIVE_TODO,
+    payload: {
+      todos: {
+        active: id,
+      },
+    },
   };
 }

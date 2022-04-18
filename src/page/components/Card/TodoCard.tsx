@@ -5,14 +5,14 @@ import { StatusBox } from '../../components';
 import { DeleteTodoButton, EditTodoButton } from '../../../components_common';
 
 const TodoCard = (props: TodoCardProps): JSX.Element => {
-  const { id, title, description, status, onDelete, onOpenEditModal, onUpdate } = props;
+  const { id, title, description, status, onDelete, onOpenEditModal, onUpdate, onSetActiveTodo } = props;
 
   const handlerOnDelete = () => {
     onDelete(id);
   };
   const handlerOnOpenEditModal = () => {
-    const todo = { id, title, description, status };
-    onOpenEditModal(todo);
+    onSetActiveTodo(id);
+    onOpenEditModal(id);
   };
 
   return (

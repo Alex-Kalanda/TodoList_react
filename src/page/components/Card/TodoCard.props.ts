@@ -1,27 +1,17 @@
 import { FieldValues } from 'react-hook-form';
 
-export interface TodoRequest {
+export interface Todo {
+  id: string;
   title: string;
   description: string;
-}
-export interface TodoUpdateStatus {
-  status: string;
-}
-export interface TodoResponse extends TodoRequest {
-  id: string;
   status: string;
   createdAt: string;
   modifiedAt?: string;
 }
-export interface TodoData {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
-}
 
-export interface TodoCardProps extends TodoResponse {
+export interface TodoCardProps extends Todo {
   onDelete: (id: string) => void;
-  onOpenEditModal: (todo: TodoData) => void;
+  onOpenEditModal: (id: string) => void;
   onUpdate: (data: FieldValues) => void;
+  onSetActiveTodo: (id: string) => void;
 }

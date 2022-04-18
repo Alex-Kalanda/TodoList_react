@@ -44,6 +44,7 @@ const useManageMainPage = () => {
     getTodos();
   }, []);
 
+  // TODO: refactor with async await
   const handler = {
     onSubmit: (data: FieldValues) => {
       axios({

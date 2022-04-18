@@ -1,9 +1,10 @@
 import { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { FieldValues } from 'react-hook-form';
 import { TodoPageAction, TodoPageState } from '../page/TodoPage/TodoPage.interfaces';
 import { Todo } from '../page/MainPage/components/Card/TodoCard.props';
+import { BASE_URL } from '../VARS';
 
 const initState: TodoPageState = {
   isLoading: true,
@@ -24,7 +25,7 @@ function reducer(state: TodoPageState, action: TodoPageAction): TodoPageState {
 
 const getTodo = async (id: string) => {
   try {
-    const response: Response = await fetch(`${process.env.REACT_APP_TODO_ENDPOINT}/${id}`);
+    const response: Response = await fetch(`${BASE_URL}/${id}`);
     return response.json();
   } catch (e) {
     throw e;
@@ -42,29 +43,27 @@ const useManageTodoPage = () => {
   }, [id]);
 
   const handler = {
-    onUpdate: (data: FieldValues) => {
-      axios({
-        url: process.env.REACT_APP_TODO_ENDPOINT,
+    onUpdate: async (data: FieldValues) => {
+      const requestParams = {
+        url: BASE_URL,
         method: 'patch',
         params: {
-          'Content-Type': 'application/json',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
         data: {
           id,
           ...data,
         },
-      })
-        .then((response: AxiosResponse) => {
-          if (response.statusText === 'OK') {
-            getTodo(id).then((todo: Todo) => {
-              dispatch({ type: ACTION, payload: { todo } });
-            });
-          }
-          dispatch({ type: ACTION, payload: { isModalActive: false } });
-        })
-        .catch((error) => {
-          throw error;
-        });
+      } as AxiosRequestConfig;
+
+      try {
+        const response: AxiosResponse = await axios(requestParams);
+        dispatch({ type: ACTION, payload: { todo: response.data, isModalActive: false } });
+      } catch (e) {
+        throw e;
+      }
     },
     onOpenEditModal: () => {
       dispatch({ type: ACTION, payload: { isModalActive: true } });

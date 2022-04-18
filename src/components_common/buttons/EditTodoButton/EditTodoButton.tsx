@@ -9,7 +9,11 @@ const EditTodoButton = ({ shape, value, className, onClick }: EditTodoButtonProp
     [styles.circle]: shape === 'circle',
   });
 
-  return <input type="button" onClick={onClick} className={buttonStyles} value={value} />;
+  return (
+    <button type="button" onClick={onClick} className={buttonStyles}>
+      {value}
+    </button>
+  );
 };
 
 export default EditTodoButton;

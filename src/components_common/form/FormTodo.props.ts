@@ -1,5 +1,5 @@
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { Todo } from '../Card/TodoCard.props';
+import { Todo } from '../../page/MainPage/components/Card/TodoCard.props';
 
 export interface FormCreateTodoProps {
   onSubmit: SubmitHandler<FieldValues>;

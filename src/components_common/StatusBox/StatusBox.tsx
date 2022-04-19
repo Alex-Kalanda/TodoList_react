@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import styles from './StatusBox.module.css';
 import { StatusBoxProps } from './StatusBox.props';
-import { TodoStatus } from '../../../../../enums/enums';
+import { TodoStatus } from '../../enums';
 
 const statuses = Object.values(TodoStatus);
 

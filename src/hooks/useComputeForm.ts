@@ -1,4 +1,4 @@
-import styles from '../page/MainPage/components/form/FormTodo.module.css';
+import styles from '../components_common/form/FormTodo.module.css';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 export interface formParam {

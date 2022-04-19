@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { emptyTodo } from '../page/MainPage/components/Card/TodoCard.props';
+import { BASE_URL } from '../VARS';
 
 interface UseTodoData {
   id: string;
@@ -7,7 +8,7 @@ interface UseTodoData {
 
 const getSingleTodo = async (id: string) => {
   try {
-    const response: Response = await fetch(`${process.env.REACT_APP_TODO_ENDPOINT}/${id}`);
+    const response: Response = await fetch(`${BASE_URL}/${id}`);
     return response.json();
   } catch (e) {
     throw e;

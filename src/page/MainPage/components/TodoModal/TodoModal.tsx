@@ -1,6 +1,5 @@
 import React from 'react';
-import { Modal } from '../../../../components_common';
-import { FormCreateTodo, FormEditTodo } from '../index';
+import { FormCreateTodo, FormEditTodo, Modal } from '../../../../components_common';
 import { TodoModalProps } from './TodoModal.props';
 
 const TodoModal = (props: TodoModalProps): JSX.Element => {

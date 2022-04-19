@@ -4,4 +4,9 @@ enum TodoStatus {
   completed = 'completed',
 }
 
-export { TodoStatus };
+enum ButtonShape {
+  rect = 'rectangle',
+  circle = 'circle',
+}
+
+export { TodoStatus, ButtonShape };

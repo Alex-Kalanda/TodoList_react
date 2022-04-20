@@ -1,4 +1,4 @@
-import { CREATE_TODO, DELETE_TODO, SET_ACTIVE_TODO, TODOS_LOAD, UPDATE_TODO } from '../types';
+import { CREATE_TODO, DELETE_TODO, SET_ACTIVE_TODO, SET_FILTER, TODOS_LOAD, UPDATE_TODO } from '../types';
 import { ActionTodo } from '../store';
 import { Todo } from '../../page/components/Card/TodoCard.props';
 import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
@@ -6,18 +6,20 @@ import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
 const initialState = {
   list: [],
   active: '',
+  update: null,
+  filter: 'all',
 };
 
 export const todosReducer = (state = initialState, action: ActionTodo) => {
   switch (action.type) {
     case TODOS_LOAD:
-      const todos_load = action.payload.todos as Todo[];
+      const todos_load = action.payload.todos?.list as Todo[];
       return {
         ...state,
         list: todos_load.slice(-AMOUNT_DISPLAYED_TODOS),
       };
     case DELETE_TODO:
-      const todos_del = action.payload.todos as Todo[];
+      const todos_del = action.payload.todos?.list as Todo[];
       return {
         ...state,
         list: todos_del.slice(-AMOUNT_DISPLAYED_TODOS),
@@ -46,6 +48,11 @@ export const todosReducer = (state = initialState, action: ActionTodo) => {
       return {
         ...state,
         active: action.payload.todos?.active,
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filter: action.payload.todos?.filter,
       };
     default:
       return state;

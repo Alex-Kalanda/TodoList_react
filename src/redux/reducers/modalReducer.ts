@@ -9,11 +9,11 @@ const initialState = {
 export const modalReducer = (state = initialState, action: ActionTodo) => {
   switch (action.type) {
     case OPEN_MODAL_CREATE:
-      return action.payload;
+      return action.payload.modal;
     case OPEN_MODAL_EDIT:
-      return action.payload;
+      return action.payload.modal;
     case CLOSE_MODAL:
-      return action.payload;
+      return action.payload.modal;
     default:
       return state;
   }

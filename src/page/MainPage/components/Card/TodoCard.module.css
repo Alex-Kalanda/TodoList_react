@@ -1,0 +1,43 @@
+.card {
+  background-color: var(--todo-bg);
+  position: relative;
+  padding: 20px 30px;
+  width: 100%;
+  min-height: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+  display: grid;
+  gap: 20px;
+  grid-template:
+    [start] 'titl stat dele' minmax(40px, auto) [row-2]
+    [row-2] 'desc desc edit' auto [row-end]
+    / minmax(auto, calc(100% - 200px)) 120px 40px;
+  word-wrap: break-word;
+}
+
+.deleteButton {
+  grid-area: dele;
+  top: 20px;
+  right: 40px;
+  align-self: center;
+}
+
+.editButton {
+  grid-area: edit;
+  top: 80px;
+  right: 40px;
+}
+
+.statusBox {
+  align-self: center;
+  grid-area: stat;
+}
+
+.title {
+  align-self: center;
+  grid-area: titl;
+}
+
+.description {
+  grid-area: desc;
+}

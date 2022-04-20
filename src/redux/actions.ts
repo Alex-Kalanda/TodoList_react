@@ -7,6 +7,7 @@ import {
   CREATE_TODO,
   SET_ACTIVE_TODO,
   LOADING_DATA,
+  SET_FILTER,
 } from './types';
 import { ActionTodo } from './store';
 import { FieldValues } from 'react-hook-form';
@@ -14,11 +15,13 @@ import { createTodoApi, deleteTodoApi, getTodosApi, updateTodoApi } from '../API
 
 export function loadTodos() {
   return async (dispatch: (action: ActionTodo) => void) => {
-    const resp = await getTodosApi();
+    const response = await getTodosApi();
     dispatch({
       type: TODOS_LOAD,
       payload: {
-        todos: resp,
+        todos: {
+          list: response,
+        },
       },
     });
     dispatch({
@@ -49,7 +52,9 @@ export function deleteTodo(id: string) {
     dispatch({
       type: DELETE_TODO,
       payload: {
-        todos: response,
+        todos: {
+          list: response,
+        },
       },
     });
   };
@@ -72,8 +77,10 @@ export function openModalCreate() {
   return {
     type: OPEN_MODAL_CREATE,
     payload: {
-      isActive: true,
-      isEditMode: false,
+      modal: {
+        isActive: true,
+        isEditMode: false,
+      },
     },
   };
 }
@@ -81,8 +88,10 @@ export function openModalEdit() {
   return {
     type: OPEN_MODAL_EDIT,
     payload: {
-      isActive: true,
-      isEditMode: true,
+      modal: {
+        isActive: true,
+        isEditMode: true,
+      },
     },
   };
 }
@@ -90,8 +99,10 @@ export function closeModal() {
   return {
     type: OPEN_MODAL_EDIT,
     payload: {
-      isActive: false,
-      isEditMode: false,
+      modal: {
+        isActive: false,
+        isEditMode: false,
+      },
     },
   };
 }
@@ -101,6 +112,16 @@ export function setActiveTodo(id: string) {
     payload: {
       todos: {
         active: id,
+      },
+    },
+  };
+}
+export function setFilter(filter: string) {
+  return {
+    type: SET_FILTER,
+    payload: {
+      todos: {
+        filter: filter,
       },
     },
   };

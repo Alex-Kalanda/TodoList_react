@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  grid-template: auto / 300px auto;
+}
+
+.aside {
+  background-color: var(--todo-bg);
+}
+
+.content {
+  margin: 0 auto 75px;
+}

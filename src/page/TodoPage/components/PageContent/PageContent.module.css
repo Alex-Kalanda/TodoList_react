@@ -1,0 +1,16 @@
+.content {
+  padding: 40px;
+  min-width: 480px;
+  width: 100%;
+  max-width: 720px;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.buttonsBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

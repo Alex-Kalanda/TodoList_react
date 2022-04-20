@@ -7,7 +7,9 @@ import thunk from 'redux-thunk';
 export interface State {
   todos: {
     list: Todo[];
+    update: Todo | null;
     active: string;
+    filter: string;
   };
   modal: {
     isEditMode: boolean;
@@ -20,8 +22,9 @@ export interface ActionTodo {
   payload: {
     todos?: {
       list?: Todo[];
-      update?: Todo;
+      update?: Todo | null;
       active?: string;
+      filter?: string;
     };
     modal?: {
       isEditMode: boolean;

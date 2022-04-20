@@ -5,6 +5,7 @@ import {
   openModalCreate,
   openModalEdit,
   setActiveTodo,
+  setFilter,
   updateTodo,
 } from '../redux/actions';
 import { useDispatch } from 'react-redux';
@@ -32,8 +33,11 @@ const useManageMain = () => {
     onCloseModal: () => {
       dispatch(closeModal());
     },
-    onSetActiveTodo: (id: string) => {
+    onSetActive: (id: string) => {
       dispatch(setActiveTodo(id));
+    },
+    onSetFilter: (filter: string) => {
+      dispatch(setFilter(filter));
     },
   };
 };

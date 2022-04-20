@@ -1,12 +1,11 @@
-import styles from '../page/components/form/FormTodo.module.css';
+import styles from '../components_common/form/FormTodo.module.css';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { TodoStatus } from '../enums/enums';
 
-interface formParam {
+export interface formParam {
   onSubmit?: SubmitHandler<FieldValues>;
   onUpdate?: SubmitHandler<FieldValues>;
   onClose: () => void;
-  editValues?: {
+  editTodo?: {
     id: string;
     status?: string;
     title?: string;
@@ -14,14 +13,14 @@ interface formParam {
   };
 }
 
-const useComputeForm = ({ onSubmit, onClose, onUpdate, editValues }: formParam) => {
+const useComputeForm = ({ onSubmit, onUpdate, editTodo, onClose }: formParam) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
-    defaultValues: { title: editValues?.title, description: editValues?.description, status: editValues?.status },
+    defaultValues: { title: editTodo?.title, description: editTodo?.description, status: editTodo?.status },
     mode: 'all',
   });
 
@@ -35,7 +34,7 @@ const useComputeForm = ({ onSubmit, onClose, onUpdate, editValues }: formParam) 
   const handlerOnUpdate: SubmitHandler<FieldValues> = (formData) => {
     if (onUpdate) {
       onUpdate({
-        id: editValues?.id,
+        id: editTodo?.id,
         ...formData,
       });
     }
@@ -72,26 +71,6 @@ const useComputeForm = ({ onSubmit, onClose, onUpdate, editValues }: formParam) 
           message: '- не может состоять из пробелов',
         },
       }),
-    },
-    status: {
-      todo: {
-        id: 'todo',
-        type: 'radio',
-        value: TodoStatus.planned,
-        ...register('status'),
-      },
-      inProgress: {
-        id: 'inProgress',
-        type: 'radio',
-        value: TodoStatus.inProgress,
-        ...register('status'),
-      },
-      completed: {
-        id: 'completed',
-        type: 'radio',
-        value: TodoStatus.completed,
-        ...register('status'),
-      },
     },
   };
 

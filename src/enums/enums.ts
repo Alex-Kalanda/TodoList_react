@@ -1,7 +1,12 @@
 enum TodoStatus {
   planned = 'todo',
-  completed = 'completed',
   inProgress = 'in_progress',
+  completed = 'completed',
 }
 
-export { TodoStatus };
+enum ButtonShape {
+  rect = 'rectangle',
+  circle = 'circle',
+}
+
+export { TodoStatus, ButtonShape };

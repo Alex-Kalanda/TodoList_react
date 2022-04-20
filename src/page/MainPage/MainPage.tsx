@@ -6,7 +6,7 @@ import { EmptyCard, EmptyCardFilter, FilterBar, TodoCard } from './components';
 import { Todo } from './components/Card/TodoCard.props';
 import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
 import TodoModal from './components/TodoModal/TodoModal';
-import { useManageMain } from '../../hooks';
+import { useManageRedux } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/store';
 import { loadTodos } from '../../redux/actions';
@@ -21,7 +21,7 @@ const innerTextFilter: Record<string, string> = {
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const h = useManageMain();
+  const handler = useManageRedux();
 
   const { todos, modal, isLoading } = useSelector((state: State) => state);
 
@@ -39,16 +39,16 @@ const MainPage = () => {
 
   const todoList = (
     <>
-      <FilterBar onFilter={h.onSetFilter} activeFilter={todos.filter} />
+      <FilterBar onFilter={handler.onSetFilter} activeFilter={todos.filter} />
       {filteredTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[todos.filter]} />}
       {filteredTodos.map((todo: Todo) => {
         return (
           <TodoCard
             key={todo.id}
-            onDelete={h.onDelete}
-            onUpdate={h.onUpdate}
-            onOpenEditModal={h.onOpenEditModal}
-            onSetActive={h.onSetActive}
+            onDelete={handler.onDelete}
+            onUpdate={handler.onUpdate}
+            onOpenEditModal={handler.onOpenEditModal}
+            onSetActive={handler.onSetActive}
             {...todo}
           />
         );
@@ -60,15 +60,15 @@ const MainPage = () => {
     <main className={styles.page}>
       {todos.list.length === 0 ? <EmptyCard /> : todoList}
 
-      <CreateTodoButtonNew className={styles.page__button} onClick={h.onOpenCreateModal} />
+      <CreateTodoButtonNew className={styles.page__button} onClick={handler.onOpenCreateModal} />
 
       <TodoModal
         isEditMode={modal.isEditMode}
         getTodo={getActiveTodo}
         isActive={modal.isActive}
-        onUpdate={h.onUpdate}
-        onSubmit={h.onCreate}
-        onClose={h.onCloseModal}
+        onUpdate={handler.onUpdate}
+        onSubmit={handler.onCreate}
+        onClose={handler.onCloseModal}
       />
     </main>
   );

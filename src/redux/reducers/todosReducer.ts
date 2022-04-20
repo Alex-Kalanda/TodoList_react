@@ -1,7 +1,7 @@
 import { CREATE_TODO, DELETE_TODO, SET_ACTIVE_TODO, SET_FILTER, TODOS_LOAD, UPDATE_TODO } from '../types';
 import { ActionTodo } from '../store';
-import { Todo } from '../../page/components/Card/TodoCard.props';
 import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
+import { Todo } from '../../page/MainPage/components/Card/TodoCard.props';
 
 const initialState = {
   list: [],

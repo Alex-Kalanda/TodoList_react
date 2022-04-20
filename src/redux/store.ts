@@ -1,8 +1,8 @@
 import { applyMiddleware, createStore } from 'redux';
-import { Todo } from '../page/components/Card/TodoCard.props';
 import { rootReducer } from './rootReducer';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import thunk from 'redux-thunk';
+import { Todo } from '../page/MainPage/components/Card/TodoCard.props';
 
 export interface State {
   todos: {

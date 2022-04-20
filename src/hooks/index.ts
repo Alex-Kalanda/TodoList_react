@@ -1,6 +1,5 @@
-import useManageMain from './useManageMain';
+import useManageRedux from './useManageRedux';
 import useManageTodoPage from './useManageTodoPage';
-import useTodoData from './useTodoData';
 import useComputeForm from './useComputeForm';
 
-export { useManageMain, useManageTodoPage, useTodoData, useComputeForm };
+export { useManageRedux, useManageTodoPage, useComputeForm };

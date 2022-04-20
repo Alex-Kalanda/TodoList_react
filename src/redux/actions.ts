@@ -126,3 +126,11 @@ export function setFilter(filter: string) {
     },
   };
 }
+export function loadingDone() {
+  return {
+    type: LOADING_DATA,
+    payload: {
+      isLoading: false,
+    },
+  };
+}

@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { FieldValues } from 'react-hook-form';
 
-const useManageMain = () => {
+const useManageRedux = () => {
   const dispatch = useDispatch();
 
   return {
@@ -42,4 +42,4 @@ const useManageMain = () => {
   };
 };
 
-export default useManageMain;
+export default useManageRedux;

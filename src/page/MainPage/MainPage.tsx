@@ -27,7 +27,7 @@ const MainPage = () => {
 
   useEffect(() => {
     dispatch(loadTodos());
-  }, []);
+  }, [dispatch]);
 
   const getActiveTodo = () => {
     return todos.list.find(({ id }: Todo) => id === todos.active) as Todo;

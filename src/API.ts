@@ -3,11 +3,11 @@ import { FieldValues } from 'react-hook-form';
 
 export const getTodosApi = async () => {
   const resp = await fetch(`${BASE_URL}`);
-  return resp.json();
+  return await resp.json();
 };
 export const getSingleTodoApi = async (id: string) => {
   const resp = await fetch(`${BASE_URL}/${id}`);
-  return resp.json();
+  return await resp.json();
 };
 
 export const deleteTodoApi = async (id: string) => {

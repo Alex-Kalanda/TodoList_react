@@ -1,12 +1,21 @@
-import { CREATE_TODO, DELETE_TODO, SET_ACTIVE_TODO, SET_FILTER, TODOS_LOAD, UPDATE_TODO } from '../types';
+import {
+  CREATE_TODO,
+  DELETE_TODO,
+  SET_ACTIVE_TODO,
+  SET_FILTER,
+  SINGLE_TODO_LOAD,
+  TODOS_LOAD,
+  UPDATE_TODO,
+} from '../types';
 import { ActionTodo } from '../store';
 import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
-import { Todo } from '../../page/MainPage/components/Card/TodoCard.props';
+import { emptyTodo, Todo } from '../../page/MainPage/components/Card/TodoCard.props';
 
 const initialState = {
   list: [],
   active: '',
   update: null,
+  current: emptyTodo,
   filter: 'all',
 };
 
@@ -18,6 +27,12 @@ export const todosReducer = (state = initialState, action: ActionTodo) => {
         ...state,
         list: todos_load.slice(-AMOUNT_DISPLAYED_TODOS),
       };
+    case SINGLE_TODO_LOAD:
+      const current_todo = action.payload.todos?.current as Todo;
+      return {
+        ...state,
+        current: current_todo,
+      };
     case DELETE_TODO:
       const todos_del = action.payload.todos?.list as Todo[];
       return {
@@ -26,8 +41,7 @@ export const todosReducer = (state = initialState, action: ActionTodo) => {
       };
     case CREATE_TODO:
       const newTodo = action.payload.todos?.update as Todo;
-      const todos_new = [...state.list] as Todo[];
-      todos_new.push(newTodo);
+      const todos_new = [...state.list, newTodo] as Todo[];
       return {
         ...state,
         list: todos_new.slice(-AMOUNT_DISPLAYED_TODOS),
@@ -42,6 +56,7 @@ export const todosReducer = (state = initialState, action: ActionTodo) => {
       oldTodo.modifiedAt = updTodo?.modifiedAt;
       return {
         ...state,
+        current: updTodo,
         list: todos_upd.slice(-AMOUNT_DISPLAYED_TODOS),
       };
     case SET_ACTIVE_TODO:

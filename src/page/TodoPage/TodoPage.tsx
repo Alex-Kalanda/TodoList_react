@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './TodoPage.module.css';
 import Header from '../../layout/Header';
 import { FormEditTodo, Modal, Preloader } from '../../components_common';
@@ -6,35 +6,31 @@ import { PageContent } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/store';
 import { useParams } from 'react-router-dom';
-import { emptyTodo, Todo } from '../MainPage/components/Card/TodoCard.props';
 import { useManageRedux } from '../../hooks';
-import { loadingDone } from '../../redux/actions';
+import { loadSingleTodo } from '../../redux/actions';
 
 const TodoPage = () => {
-  const { id } = useParams();
-  const currentId = id;
   const dispatch = useDispatch();
+  const { id = '' } = useParams();
   const handler = useManageRedux();
-  const [todo, setTodo] = useState(emptyTodo);
   const { todos, modal, isLoading } = useSelector((state: State) => state);
 
   useEffect(() => {
-    setTodo(todos.list.find(({ id }: Todo) => id === currentId) as Todo);
-    dispatch(loadingDone());
-  }, []);
+    dispatch(loadSingleTodo(id));
+  }, [dispatch, id]);
 
   const content = (
     <main>
       <PageContent
         className={styles.content}
-        {...todo}
+        {...todos.current}
         onUpdate={handler.onUpdate}
         onOpenEditModal={handler.onOpenEditModal}
       />
 
       {modal.isActive && (
         <Modal onClose={handler.onCloseModal}>
-          <FormEditTodo editTodo={todo} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
+          <FormEditTodo editTodo={todos.current} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
         </Modal>
       )}
     </main>

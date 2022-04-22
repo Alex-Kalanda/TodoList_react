@@ -8,11 +8,10 @@ import {
   SET_ACTIVE_TODO,
   LOADING_DATA,
   SET_FILTER,
-  SINGLE_TODO_LOAD,
 } from './types';
 import { ActionTodo } from './store';
 import { FieldValues } from 'react-hook-form';
-import { createTodoApi, deleteTodoApi, getSingleTodoApi, getTodosApi, updateTodoApi } from '../API';
+import { createTodoApi, deleteTodoApi, getTodosApi, updateTodoApi } from '../API';
 
 export function loadTodos() {
   return async (dispatch: (action: ActionTodo) => void) => {
@@ -22,25 +21,6 @@ export function loadTodos() {
       payload: {
         todos: {
           list: response,
-        },
-      },
-    });
-    dispatch({
-      type: LOADING_DATA,
-      payload: {
-        isLoading: false,
-      },
-    });
-  };
-}
-export function loadSingleTodo(id: string) {
-  return async (dispatch: (action: ActionTodo) => void) => {
-    const response = await getSingleTodoApi(id);
-    dispatch({
-      type: SINGLE_TODO_LOAD,
-      payload: {
-        todos: {
-          current: response,
         },
       },
     });
@@ -151,6 +131,14 @@ export function redirect() {
     type: LOADING_DATA,
     payload: {
       isLoading: true,
+    },
+  };
+}
+export function finishLoading() {
+  return {
+    type: LOADING_DATA,
+    payload: {
+      isLoading: false,
     },
   };
 }

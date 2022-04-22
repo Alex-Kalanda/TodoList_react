@@ -10,7 +10,6 @@ export interface State {
     update: Todo | null;
     active: string;
     filter: string;
-    current: Todo;
   };
   modal: {
     isEditMode: boolean;
@@ -26,7 +25,6 @@ export interface ActionTodo {
       update?: Todo | null;
       active?: string;
       filter?: string;
-      current?: Todo;
     };
     modal?: {
       isEditMode: boolean;

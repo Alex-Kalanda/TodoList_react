@@ -14,11 +14,11 @@ const useGetTodo = (todos: Todo[]): Todo => {
     if (todos.length === 0) {
       getSingleTodoApi(id).then((r) => {
         setTodo(r);
-        dispatch(finishLoading());
       });
     } else {
       setTodo(todos.find((todo) => todo.id === id) as Todo);
     }
+    dispatch(finishLoading());
   }, [dispatch, id, todos]);
 
   return todo;

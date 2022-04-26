@@ -3,11 +3,15 @@ import styles from './TodoPage.module.css';
 import Header from '../../layout/Header';
 import { FormEditTodo, Modal, Preloader } from '../../components_common';
 import { PageContent } from './components';
-import useManageTodoPage from '../../hooks/useManageTodoPage';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/store';
+import { useManageRedux } from '../../hooks';
+import useGetTodo from '../../hooks/useGetTodo';
 
 const TodoPage = () => {
-  const { state, handler } = useManageTodoPage();
-  const { todo, isLoading, isModalActive } = state;
+  const handler = useManageRedux();
+  const { todos, modal, isLoading } = useSelector((state: State) => state);
+  const todo = useGetTodo(todos.list);
 
   const content = (
     <main>
@@ -18,7 +22,7 @@ const TodoPage = () => {
         onOpenEditModal={handler.onOpenEditModal}
       />
 
-      {isModalActive && (
+      {modal.isActive && (
         <Modal onClose={handler.onCloseModal}>
           <FormEditTodo editTodo={todo} onUpdate={handler.onUpdate} onClose={handler.onCloseModal} />
         </Modal>
@@ -31,7 +35,7 @@ const TodoPage = () => {
       <Header />
       <div className={styles.container}>
         <aside className={styles.aside} />
-        {isLoading ? content : <Preloader />}
+        {isLoading ? <Preloader /> : content}
       </div>
     </>
   );

@@ -4,20 +4,25 @@ import styles from './TodoCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DeleteTodoButton, EditTodoButton, StatusBox } from '../../../../components_common';
 import { ButtonShape } from '../../../../enums';
+import { useDispatch } from 'react-redux';
+import { redirect } from '../../../../redux/actions';
 
 const TodoCard = (props: TodoCardProps): JSX.Element => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { id, title, description, status, onDelete, onOpenEditModal, onUpdate } = props;
+  const { id, title, description, status, onDelete, onOpenEditModal, onSetActive, onUpdate } = props;
 
   const handlerOnDelete = () => {
     onDelete(id);
   };
   const handlerOnOpenEditModal = () => {
+    onSetActive(id);
     onOpenEditModal(id);
   };
   const handlerOnRedirect = () => {
     navigate(`/todo/${id}`);
+    dispatch(redirect());
   };
 
   return (

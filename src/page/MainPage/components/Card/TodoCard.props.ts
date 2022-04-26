@@ -21,4 +21,5 @@ export interface TodoCardProps extends Todo {
   onDelete: (id: string) => void;
   onOpenEditModal: (id: string) => void;
   onUpdate: (data: FieldValues) => void;
+  onSetActive: (id: string) => void;
 }

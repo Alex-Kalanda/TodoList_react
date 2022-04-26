@@ -5,12 +5,7 @@ import { useComputeForm } from '../../hooks';
 import { CancelButton, CreateTodoButton } from '../index';
 
 const FormCreateTodo = ({ onSubmit, onClose }: FormCreateTodoProps): JSX.Element => {
-  const { settings, handler } = useComputeForm({ onSubmit });
-
-  const handlerOnClose = () => {
-    onClose();
-    handler.onClear();
-  };
+  const { settings, handler } = useComputeForm({ onSubmit, onClose });
 
   return (
     <>
@@ -27,7 +22,7 @@ const FormCreateTodo = ({ onSubmit, onClose }: FormCreateTodoProps): JSX.Element
 
         <div className={styles.form__buttonContainer}>
           <CreateTodoButton className={styles.form__create} />
-          <CancelButton onClick={handlerOnClose} className={styles.form__cancel} />
+          <CancelButton onClick={handler.onClose} className={styles.form__cancel} />
         </div>
       </form>
     </>

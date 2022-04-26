@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './MainPage.module.css';
 import { CreateTodoButtonNew, Preloader } from '../../components_common';
-import useManageMainPage from '../../hooks/useManageMainPage';
 import Header from '../../layout/Header/Header';
 import { EmptyCard, EmptyCardFilter, FilterBar, TodoCard } from './components';
-import { emptyTodo, Todo } from './components/Card/TodoCard.props';
+import { Todo } from './components/Card/TodoCard.props';
 import { AMOUNT_DISPLAYED_TODOS } from '../../VARS';
 import TodoModal from './components/TodoModal/TodoModal';
+import { useManageRedux } from '../../hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../redux/store';
+import { loadTodos } from '../../redux/actions';
 
 const innerTextFilter: Record<string, string> = {
   // keys based on TodoStatus
@@ -17,21 +20,27 @@ const innerTextFilter: Record<string, string> = {
 };
 
 const MainPage = () => {
-  const { handler, state } = useManageMainPage();
-  const { isLoading, isEditMode, isModalActive, activeTodoID, todos, filter } = state;
+  const dispatch = useDispatch();
+  const handler = useManageRedux();
+
+  const { todos, modal, isLoading } = useSelector((state: State) => state);
+
+  useEffect(() => {
+    dispatch(loadTodos());
+  }, [dispatch]);
 
   const getActiveTodo = () => {
-    return todos.find(({ id }) => id === activeTodoID) || emptyTodo;
+    return todos.list.find(({ id }: Todo) => id === todos.active) as Todo;
   };
 
-  const filteredTodos = todos
-    .filter(({ status }: Todo) => filter === 'all' || filter === status)
+  const filteredTodos = todos.list
+    .filter(({ status }: Todo) => todos.filter === 'all' || todos.filter === status)
     .slice(-AMOUNT_DISPLAYED_TODOS);
 
   const todoList = (
     <>
-      <FilterBar onFilter={handler.onFilter} activeFilter={filter} />
-      {filteredTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[filter]} />}
+      <FilterBar onFilter={handler.onSetFilter} activeFilter={todos.filter} />
+      {filteredTodos.length === 0 && <EmptyCardFilter filter={innerTextFilter[todos.filter]} />}
       {filteredTodos.map((todo: Todo) => {
         return (
           <TodoCard
@@ -39,6 +48,7 @@ const MainPage = () => {
             onDelete={handler.onDelete}
             onUpdate={handler.onUpdate}
             onOpenEditModal={handler.onOpenEditModal}
+            onSetActive={handler.onSetActive}
             {...todo}
           />
         );
@@ -48,16 +58,16 @@ const MainPage = () => {
 
   const content = (
     <main className={styles.page}>
-      {todos.length === 0 ? <EmptyCard /> : todoList}
+      {todos.list.length === 0 ? <EmptyCard /> : todoList}
 
       <CreateTodoButtonNew className={styles.page__button} onClick={handler.onOpenCreateModal} />
 
       <TodoModal
-        isEditMode={isEditMode}
+        isEditMode={modal.isEditMode}
         getTodo={getActiveTodo}
-        isActive={isModalActive}
+        isActive={modal.isActive}
         onUpdate={handler.onUpdate}
-        onSubmit={handler.onSubmit}
+        onSubmit={handler.onCreate}
         onClose={handler.onCloseModal}
       />
     </main>

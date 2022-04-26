@@ -5,12 +5,7 @@ import { useComputeForm } from '../../hooks';
 import { CancelButton, UpdateTodoButton } from '../index';
 
 const FormEditTodo = ({ onUpdate, onClose, editTodo }: FormEditTodoProps): JSX.Element => {
-  const { settings, handler } = useComputeForm({ onUpdate, editTodo });
-
-  const handlerOnClose = () => {
-    onClose();
-    handler.onClear();
-  };
+  const { settings, handler } = useComputeForm({ onUpdate, editTodo, onClose });
 
   return (
     <>
@@ -27,7 +22,7 @@ const FormEditTodo = ({ onUpdate, onClose, editTodo }: FormEditTodoProps): JSX.E
 
         <div className={styles.form__buttonContainer}>
           <UpdateTodoButton className={styles.form__create} />
-          <CancelButton onClick={handlerOnClose} className={styles.form__cancel} />
+          <CancelButton onClick={handler.onClose} className={styles.form__cancel} />
         </div>
       </form>
     </>

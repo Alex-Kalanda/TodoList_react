@@ -5,7 +5,7 @@ const SquarePage = () => {
   const squareRef = useRef(null);
   const [counter, setCounter] = useState(0);
 
-  const changeSize = () => {
+  const handleSize = useCallback(() => {
     const square = squareRef.current as HTMLElement | null;
 
     if (square) {
@@ -17,8 +17,7 @@ const SquarePage = () => {
         square.style.height = '60px';
       }
     }
-  };
-  const handleChangeSize = useCallback(changeSize, []);
+  }, []);
 
   const handleIncreaseCounter = () => {
     setCounter((prev) => prev + 1);
@@ -29,17 +28,17 @@ const SquarePage = () => {
 
   useEffect(() => {
     const square = squareRef.current as HTMLElement | null;
-    handleChangeSize();
+    handleSize();
 
     if (square && counter > 5) {
-      window.addEventListener('resize', handleChangeSize);
+      window.addEventListener('resize', handleSize);
     } else {
-      window.removeEventListener('resize', handleChangeSize);
+      window.removeEventListener('resize', handleSize);
     }
     return () => {
-      window.removeEventListener('resize', handleChangeSize);
+      window.removeEventListener('resize', handleSize);
     };
-  }, [counter, handleChangeSize]);
+  }, [counter, handleSize]);
 
   return (
     <div className={styles.wrapper}>
